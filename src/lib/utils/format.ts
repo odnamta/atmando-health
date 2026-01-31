@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow, parseISO } from 'date-fns'
+import { format, formatDistanceToNow, parseISO, differenceInMonths, differenceInYears } from 'date-fns'
 import { id } from 'date-fns/locale'
 
 // Date formatting
@@ -47,4 +47,26 @@ export const formatFileSize = (bytes: number) => {
   if (bytes >= 1_000_000) return `${formatDecimal(bytes / 1_000_000)} MB`
   if (bytes >= 1_000) return `${formatDecimal(bytes / 1_000)} KB`
   return `${bytes} B`
+}
+
+// Age calculation: "2 tahun 3 bulan" or "14 bulan"
+export const formatAge = (birthDate: Date | string) => {
+  const birth = typeof birthDate === 'string' ? parseISO(birthDate) : birthDate
+  const now = new Date()
+  const years = differenceInYears(now, birth)
+  const months = differenceInMonths(now, birth) % 12
+
+  if (years === 0) {
+    return `${months} bulan`
+  }
+  if (months === 0) {
+    return `${years} tahun`
+  }
+  return `${years} tahun ${months} bulan`
+}
+
+// Age in months (for vaccination schedule)
+export const getAgeInMonths = (birthDate: Date | string) => {
+  const birth = typeof birthDate === 'string' ? parseISO(birthDate) : birthDate
+  return differenceInMonths(new Date(), birth)
 }

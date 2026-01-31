@@ -125,11 +125,15 @@ Atmando Health
 <!-- Updated by agent hook -->
 - [x] Create comprehensive Kiro steering documentation
 - [x] Set up spec folders with v0.x.y versioning
-- [ ] Complete database schema migration
-- [ ] Build family profiles and dashboard (v0.1)
+- [x] Complete database schema migration
+- [x] Build family profiles and dashboard (v0.1)
 - [ ] Implement health metrics entry and charts (v0.2)
 
 ### Recent Changes
+- **31 Jan 2026**: Completed v0.1 - Family Profiles & Dashboard milestone
+- **31 Jan 2026**: Added member edit page with profile form and avatar upload
+- **31 Jan 2026**: Created server actions for profile updates
+- **31 Jan 2026**: Added loading skeletons for all dashboard pages
 - **31 Jan 2026**: Created full steering documentation from PRD v1.0
 - **31 Jan 2026**: Added 9 spec folders (v0.1 through v0.9) with requirements, design, and tasks
 - **31 Jan 2026**: Updated database schema with 15+ health tables and RLS policies

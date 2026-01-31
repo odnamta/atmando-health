@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### ✨ Added
+- **v0.1 Family Profiles & Dashboard** - Complete milestone
+  - Dashboard layout with header, mobile menu, and user dropdown
+  - Family overview page with member cards and health status
+  - Member dashboard with tabbed interface (metrics, documents, etc.)
+  - Members list page with role badges and edit links
+  - Member edit page with profile form and avatar upload
+  - Server actions for profile updates and avatar uploads
+  - Loading skeletons for all dashboard pages
+  - Toast notifications via Sonner
 - Comprehensive PRD v1.0 with full feature specifications
 - Complete database schema with 15+ health-specific tables
 - Indonesian IDAI vaccination schedule reference

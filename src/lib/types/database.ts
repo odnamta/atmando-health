@@ -280,6 +280,53 @@ export type Database = {
           created_by?: string | null
         }
       }
+      health_profiles: {
+        Row: {
+          id: string
+          family_member_id: string
+          blood_type: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'Unknown' | null
+          allergies: string[] | null
+          conditions: string[] | null
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          emergency_contact_relationship: string | null
+          insurance_provider: string | null
+          insurance_number: string | null
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          family_member_id: string
+          blood_type?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'Unknown' | null
+          allergies?: string[] | null
+          conditions?: string[] | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          emergency_contact_relationship?: string | null
+          insurance_provider?: string | null
+          insurance_number?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          family_member_id?: string
+          blood_type?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'Unknown' | null
+          allergies?: string[] | null
+          conditions?: string[] | null
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          emergency_contact_relationship?: string | null
+          insurance_provider?: string | null
+          insurance_number?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -306,7 +353,27 @@ export type MedicalDocument = Tables<'medical_documents'>
 export type Medication = Tables<'medications'>
 export type MedicationLog = Tables<'medication_logs'>
 export type DoctorVisit = Tables<'doctor_visits'>
+export type HealthProfile = Tables<'health_profiles'>
+
+// Insert types
+export type InsertHealthProfile = InsertTables<'health_profiles'>
+
+// Update types
+export type UpdateHealthProfile = UpdateTables<'health_profiles'>
 
 export type FamilyRole = FamilyMember['role']
 export type MetricType = HealthMetric['metric_type']
 export type DocumentType = MedicalDocument['document_type']
+
+// Blood type enum
+export type BloodType = NonNullable<HealthProfile['blood_type']>
+
+// Blood type options for dropdowns
+export const BLOOD_TYPE_OPTIONS: BloodType[] = [
+  'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', 'Unknown'
+] as const
+
+// Family member with health profile (for joined queries)
+export type FamilyMemberWithProfile = FamilyMember & {
+  health_profiles: HealthProfile | null
+}
