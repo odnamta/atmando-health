@@ -2,27 +2,31 @@
 
 All notable changes to Atmando Health will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
 ### ✨ Added
-- Initial project setup with Kiro steering documentation
-- Database schema design for health metrics, documents, medications, and visits
-- Indonesian locale formatting standards
+- Comprehensive PRD v1.0 with full feature specifications
+- Complete database schema with 15+ health-specific tables
+- Indonesian IDAI vaccination schedule reference
+- Emergency card with QR code specification
+- Garmin Connect integration design
+- WHO growth chart standards for children
+- PWA offline support architecture
+- 9 feature specs (v0.1-v0.9) with requirements, design, and tasks
+
+### 📝 Docs
+- Created full steering documentation from PRD
+- Added comprehensive database schema with RLS policies
+- Enhanced formatting standards with health-specific formatters
+- Expanded user guide with all features in Indonesian
+- Added .kiro/README.md with project structure
 
 ### 🔧 Changed
-- (none yet)
-
-### 🐛 Fixed
-- (none yet)
-
-### 🗑️ Removed
-- (none yet)
-
-### 🔒 Security
-- RLS policies designed for family data isolation
-- Role-based access control (admin, parent, child, viewer, staff)
+- Spec versioning now uses semantic versioning (v0.x.y)
+- Removed old atmando-health-mvp spec folder
 
 ---
 
@@ -38,3 +42,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 | 📝 | Docs | Documentation updates |
 | 🎨 | Style | UI/UX improvements |
 | ⚡ | Performance | Performance improvements |
+| 🏗️ | Build | Build system changes |
+| 🧪 | Test | Test additions/changes |

@@ -1,48 +1,102 @@
-# Atmando Health - Kiro Setup
+# Atmando Health - Kiro Configuration
+
+This folder contains Kiro agent steering documentation for the Atmando Health project.
 
 ## Quick Start
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Copy `.env.example` to `.env.local` and fill in Supabase credentials
-4. Run development server: `npm run dev`
+```bash
+# Development
+npm run dev
 
-## Kiro Structure
+# Build
+npm run build
+
+# Generate Supabase types
+npm run db:types
+```
+
+## Folder Structure
 
 ```
 .kiro/
-├── steering/           # Agent guidance files
+├── steering/           # Agent steering files
 │   ├── general.md              # Code conventions (always included)
 │   ├── project-context.md      # Project overview (always included)
-│   ├── database-schema.md      # DB schema reference (always included)
-│   ├── formatting-standards.md # Indonesian locale (always included)
-│   └── user-guide.md           # User docs (manual inclusion)
-├── hooks/              # Automated agent actions
-│   ├── update-project-context.json
-│   └── update-database-schema.json
-├── specs/              # Feature specifications
-│   └── atmando-health-mvp/
-│       ├── requirements.md
-│       ├── design.md
-│       └── tasks.md
+│   ├── database-schema.md      # Database reference (always included)
+│   ├── formatting-standards.md # Indonesian formatting (always included)
+│   └── user-guide.md           # User guide (manual inclusion)
+│
+├── specs/              # Feature specifications (v0.x.y naming)
+│   ├── v0.1-profiles-dashboard/
+│   ├── v0.2-health-metrics/
+│   ├── v0.3-documents/
+│   ├── v0.4-vaccinations-visits/
+│   ├── v0.5-medications/
+│   ├── v0.6-emergency-card/
+│   ├── v0.7-notifications/
+│   ├── v0.8-garmin-sync/
+│   └── v0.9-growth-charts/
+│
+├── hooks/              # Agent hooks
+│   ├── update-project-context.kiro.hook
+│   └── update-database-schema.kiro.hook
+│
 └── README.md           # This file
 ```
 
-## Supabase Setup
+## Steering Files
 
-1. Create project at supabase.com (or use existing `atmando-family`)
-2. Run migrations from `.kiro/steering/database-schema.md`
-3. Generate types: `npm run db:types`
+| File | Inclusion | Purpose |
+|------|-----------|---------|
+| general.md | Always | Code conventions, patterns, DO/DON'T |
+| project-context.md | Always | Project overview, tech stack, workflows |
+| database-schema.md | Always | Full database schema with RLS |
+| formatting-standards.md | Always | Indonesian locale formatting |
+| user-guide.md | Manual | Non-technical user guide |
 
-## Environment Variables
+## Spec Versioning
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=your-project-url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-```
+Specs follow semantic versioning: `v{major}.{minor}-{feature-name}`
 
-## Key Files
+- v0.x = MVP features
+- v1.x = Post-launch features
 
-- Steering docs: `.kiro/steering/`
-- Database schema: `.kiro/steering/database-schema.md`
-- Changelog: `CHANGELOG.md`
+Each spec folder contains:
+- `requirements.md` - User stories and acceptance criteria
+- `design.md` - Technical design and component hierarchy
+- `tasks.md` - Implementation tasks
+
+## Development Phases
+
+| Phase | Spec | Days | Status |
+|-------|------|------|--------|
+| 1 | v0.1-profiles-dashboard | 2 | 🔲 |
+| 2 | v0.2-health-metrics | 2 | 🔲 |
+| 3 | v0.3-documents | 2 | 🔲 |
+| 4 | v0.4-vaccinations-visits | 2 | 🔲 |
+| 5 | v0.5-medications | 1.5 | 🔲 |
+| 6 | v0.6-emergency-card | 1.5 | 🔲 |
+| 7 | v0.7-notifications | 2 | 🔲 |
+| 8 | v0.8-garmin-sync | 2 | 🔲 |
+| 9 | v0.9-growth-charts | 2 | 🔲 |
+
+**Total: ~17 days**
+
+## Key References
+
+- [CHANGELOG.md](../CHANGELOG.md) - Version history
+- [Database Schema](steering/database-schema.md) - Full schema with RLS
+- [PRD](../docs/PRD.md) - Product Requirements Document (if exists)
+
+## Agent Hooks
+
+### update-project-context
+Triggers after significant work to update:
+- Recent Changes in project-context.md
+- CHANGELOG.md entries
+- Task status
+
+### update-database-schema
+Triggers when database changes to:
+- Update database-schema.md
+- Document new RLS policies

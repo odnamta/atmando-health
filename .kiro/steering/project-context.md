@@ -2,22 +2,26 @@
 
 ## Overview
 
-**Atmando Health** is a family health data aggregation app for the Atmando Family Hub ecosystem. It provides a secure, centralized place to track health metrics, store medical documents, manage medications, and log doctor visits for all family members.
+**Atmando Health** is a secure family health vault for the Atmando Family Hub ecosystem. It keeps medical records, tracks health metrics, syncs fitness data, and ensures nothing gets lost—accessible anywhere, anytime.
 
 **Primary Problem:** Family health data is scattered across apps, paper records, and memories. This app consolidates everything in one secure, accessible location.
+
+**One-Line Summary:** A secure family health vault that keeps medical records, tracks health metrics, syncs fitness data, and ensures nothing gets lost.
 
 ## Tech Stack
 
 | Technology | Version | Purpose |
 |------------|---------|---------|
-| Next.js | 15.x | App Router, Server Components |
+| Next.js | 15.x | App Router, Server Components, PWA |
 | TypeScript | 5.x | Strict mode enabled |
 | Supabase | Latest | Database, Auth, Storage |
 | Tailwind CSS | 4.x | Styling |
 | shadcn/ui | Latest | UI components (new-york theme) |
+| Recharts | Latest | Interactive charts |
 | date-fns | 3.x | Date formatting with Indonesian locale |
 | Zod | 3.x | Schema validation |
 | React Hook Form | 7.x | Form handling |
+| idb | Latest | IndexedDB for offline support |
 
 ## Key Commands
 
@@ -36,50 +40,131 @@ npm run db:push      # Push migrations (if using local)
 npm run deploy       # Deploy to Vercel
 ```
 
+## Family Members
+
+| Name | Role | Primary Needs |
+|------|------|---------------|
+| Dio | Admin, Builder | Admin access, tracks BP, syncs Garmin |
+| Celline | Parent, Strategist | Easy mobile access, manages kids' health |
+| Alma | Daughter (older) | Subject of tracking (health, growth, vaccinations) |
+| Sofia | Daughter (younger) | Subject of tracking (health, growth, vaccinations) |
+| Extended Family | Grandparents, etc. | View-only access to select data |
+
 ## User Roles & Access
 
-| Role | Users | Health Access | Document Access | Admin |
-|------|-------|---------------|-----------------|-------|
-| admin | Dio | Full CRUD all members | Full CRUD | Yes |
-| parent | Celline | Full CRUD all members | Full CRUD | No |
-| child | Alma, Sofia | View own only | View own only | No |
-| viewer | Grandparents | View selected members | View selected | No |
-| staff | Nanny, etc. | No access | No access | No |
+| Feature | Dio (Admin) | Celline (Parent) | Extended Family |
+|---------|-------------|------------------|-----------------|
+| View all profiles | ✅ | ✅ | ✅ (selected) |
+| Add health entry | ✅ | ✅ | ❌ |
+| Upload documents | ✅ | ✅ | ❌ |
+| Edit entries | ✅ | ✅ (own entries) | ❌ |
+| Delete entries | ✅ | ❌ | ❌ |
+| Manage profiles | ✅ | ✅ | ❌ |
+| Export data | ✅ | ✅ | ❌ |
+| Manage users | ✅ | ❌ | ❌ |
+| View Garmin data | ✅ | ✅ | ❌ |
+| Emergency card | ✅ | ✅ | ✅ |
 
 ## Key Workflows
 
 ### Health Metric Entry
 ```
 User opens app → Select family member → Choose metric type
-→ Enter value(s) → Save → View in history/chart
+→ Enter value(s) → Validate range → Save → View in history/chart
 ```
 
 ### Document Upload
 ```
-User opens documents → Select member → Upload file
+User opens documents → Select member → Upload file (max 10MB)
 → Add metadata (type, date, doctor) → Save to storage
-→ View in document list
+→ View in document list → OCR processing (background)
 ```
 
-### Medication Tracking
+### Vaccination Tracking
 ```
-Add medication → Set schedule → Daily reminder check
-→ Mark as taken → View adherence history
+View IDAI schedule → See due vaccinations → Record given vaccine
+→ Upload certificate → Set reminder for next dose
+```
+
+### Emergency Card
+```
+Select family member → View critical info (allergies, blood type)
+→ Generate QR code → Share/print card
+```
+
+## Information Architecture
+
+```
+Atmando Health
+├── 🏠 Home (Family Overview)
+│   ├── Family member cards with health status
+│   ├── Alerts & reminders (vaccinations, medications, appointments)
+│   ├── Recent activity feed
+│   └── Quick add button
+│
+├── 👤 Person Profile (per family member)
+│   ├── Profile Header (photo, name, DOB, blood type, allergies)
+│   ├── Health Metrics Tab (readings, charts, history)
+│   ├── Documents Tab (grid/list, search, upload)
+│   ├── Vaccinations Tab (due, completed, timeline)
+│   ├── Doctor Visits Tab (history, calendar)
+│   ├── Medications Tab (current, completed, logs)
+│   └── Growth Chart Tab (kids only - WHO standards)
+│
+├── 📄 Documents Library
+├── 📊 Fitness (Garmin Integration)
+├── 🚨 Emergency Card
+├── 📅 Calendar
+├── ➕ Quick Add (Bottom Sheet)
+└── ⚙️ Settings
 ```
 
 ## Current State
 
 ### Active Tasks
 <!-- Updated by agent hook -->
-- [ ] Initial project setup
-- [ ] Database schema creation
-- [ ] Core UI components
+- [x] Create comprehensive Kiro steering documentation
+- [x] Set up spec folders with v0.x.y versioning
+- [ ] Complete database schema migration
+- [ ] Build family profiles and dashboard (v0.1)
+- [ ] Implement health metrics entry and charts (v0.2)
 
 ### Recent Changes
+- **31 Jan 2026**: Created full steering documentation from PRD v1.0
+- **31 Jan 2026**: Added 9 spec folders (v0.1 through v0.9) with requirements, design, and tasks
+- **31 Jan 2026**: Updated database schema with 15+ health tables and RLS policies
+
 See [CHANGELOG.md](../../CHANGELOG.md) for detailed history.
 
 ### Known Issues
 - None yet (new project)
+
+## Development Phases
+
+| Phase | Days | Milestone |
+|-------|------|-----------|
+| 1 | 1-2 | Project setup, Supabase schema, auth, PWA config |
+| 2 | 3-4 | Profiles & Dashboard |
+| 3 | 5-6 | Health Metrics |
+| 4 | 7-8 | Documents |
+| 5 | 9-10 | Vaccinations & Visits |
+| 6 | 11-12 | Medications |
+| 7 | 13-14 | Emergency Card & Export |
+| 8 | 15-16 | Notifications |
+| 9 | 17-18 | Garmin Integration |
+| 10 | 19-20 | Growth Charts |
+| 11 | 21+ | Polish & Launch |
+
+## Cost Constraints
+
+| Service | Free Tier Limit | Plan if Exceeded |
+|---------|-----------------|------------------|
+| Supabase | 500MB DB, 1GB storage | Stay within free |
+| Vercel | 100GB bandwidth | Should be fine |
+| Google Vision | 1000 OCR/month | Manual entry fallback |
+| Garmin API | No cost | N/A |
+
+**Total Target:** $0/month initially, <$10/month at scale
 
 ## Quick References
 
