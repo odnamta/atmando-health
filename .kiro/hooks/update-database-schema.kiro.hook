@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "Update Database Schema Docs",
+  "description": "Updates database schema documentation when SQL migrations are created or modified",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "**/migrations/*.sql",
+      "**/supabase/migrations/*.sql"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A new database migration was created. Please:\n1. Review the migration SQL\n2. Update .kiro/steering/database-schema.md to reflect the changes\n3. Document any new tables, columns, indexes, or RLS policies\n4. Add TypeScript type examples if new tables were created\n5. Update common query patterns if relevant"
+  }
+}

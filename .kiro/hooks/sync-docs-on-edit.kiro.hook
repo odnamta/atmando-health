@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "Sync Documentation",
+  "description": "When a source file is edited, reviews the changes and updates README.md or /docs folder documentation if needed to keep docs in sync with the codebase.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "src/**/*.ts",
+      "src/**/*.tsx",
+      "src/**/*.js",
+      "src/**/*.jsx"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A source file was just edited. Review the changes made and determine if the README.md or any documentation in the /docs folder needs to be updated to reflect these changes. Consider: new features, API changes, configuration changes, or significant behavior modifications. If documentation updates are needed, make the appropriate changes to keep docs in sync with the codebase. If no documentation updates are needed, briefly explain why."
+  }
+}

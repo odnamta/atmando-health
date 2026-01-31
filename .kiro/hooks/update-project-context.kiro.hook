@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Update Project Context",
+  "description": "Updates project context and changelog after completing significant work",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Review the work just completed. If significant changes were made (new features, bug fixes, schema changes), update:\n1. The 'Recent Changes' section in .kiro/steering/project-context.md\n2. Add an entry to CHANGELOG.md with the appropriate emoji category\n3. Update any task status in the 'Active Tasks' section\n\nOnly update if meaningful work was done. Skip for minor edits or exploration."
+  }
+}
