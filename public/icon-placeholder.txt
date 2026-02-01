@@ -1,0 +1,25 @@
+# Icon Placeholders
+
+The following icon files need to be created for PWA support:
+
+1. `/public/icon-192.png` - 192x192px app icon
+2. `/public/icon-512.png` - 512x512px app icon
+3. `/public/badge-72.png` - 72x72px notification badge
+
+## Recommended Design
+
+- Primary color: #ef4444 (red-500)
+- Icon: Heart symbol (matching app logo)
+- Background: White or transparent
+- Style: Modern, clean, medical/health theme
+
+## Tools
+
+- Figma, Sketch, or Adobe Illustrator for design
+- Export as PNG with transparency
+- Optimize with tools like TinyPNG
+
+## Temporary Solution
+
+For development, you can use a simple colored square or the Next.js default icon.
+The app will work without these, but notifications and PWA installation will use browser defaults.

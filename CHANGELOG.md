@@ -8,6 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### ✨ Added
+- **v0.7 Push Notifications** - Implementation complete (requires manual setup)
+  - `/settings/notifications` page for notification preferences
+  - NotificationPermissionBanner component for dashboard
+  - Service worker (`/sw.js`) for push notification handling
+  - Push subscription management (multiple devices per user)
+  - Notification preferences: vaccination, medication, appointment reminders
+  - Configurable reminder timing (days before event)
+  - Quiet hours settings (default 22:00-07:00)
+  - Edge Function: `schedule-notifications` for automated reminders
+  - Database tables: `health_notification_preferences`, `push_subscriptions`, `notification_logs`
+  - RLS policies for notification tables
+  - Notification utilities: service worker registration, permission handling
+  - PWA manifest.json for app installation
+  - ServiceWorkerRegistration component for auto-registration
+  - Notification types: vaccination reminders, medication reminders, appointment reminders
+  - Notification logging and tracking (sent, delivered, clicked, failed)
+  - Web Push API integration with VAPID authentication
+  - **Note**: Requires VAPID key generation and Edge Function deployment (see docs/NOTIFICATIONS_SETUP.md)
+
 - **v0.6 Emergency Card** - Implementation complete (pending database migration)
   - `/emergency` page with family member selector and emergency info preview
   - `/emergency/[memberId]` page with full emergency card and QR code

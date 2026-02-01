@@ -212,13 +212,13 @@ const form = useForm({ resolver: zodResolver(schema) })
 ## Active Sprint Tasks
 
 - [x] v0.6: Emergency Card with QR code (implementation complete, pending migration)
-- [ ] v0.6: PDF export for doctor visits
-- [ ] v0.7: Push notifications for medications/vaccinations
+- [x] v0.7: Push notifications for medications/vaccinations (implementation complete, requires setup)
 - [ ] v0.8: Garmin Connect integration (Dio only)
 - [ ] v0.9: WHO growth charts for kids
 
 ## Recent Changes
 
+- 2026-02-01: v0.7.0 - Push Notifications (preferences, service worker, Edge Function, PWA support) - **REQUIRES SETUP**
 - 2026-02-01: v0.6.0 - Emergency Card (QR codes, public access, sharing, print-ready cards) - **PENDING MIGRATION**
 - 2026-02-01: Created CLAUDE.md, restructured project-context.md for consistency
 - 2026-02-01: v0.5.0 - Medications Tracking (today's meds, take/skip logging, adherence stats, detail page)

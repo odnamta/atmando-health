@@ -17,6 +17,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
+import { NotificationPermissionBanner } from '@/components/health/NotificationPermissionBanner'
 
 /**
  * Indonesian labels for the dashboard layout
@@ -131,6 +132,9 @@ function Header() {
               <Link href="/settings/profile">{LABELS.user.profile}</Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
+              <Link href="/settings/notifications">Notifikasi</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
               <Link href="/settings">{LABELS.user.settings}</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -161,6 +165,7 @@ export default function DashboardLayout({
     <div className="min-h-screen bg-background">
       <Header />
       <main className="container px-4 py-6">
+        <NotificationPermissionBanner />
         <Suspense fallback={<DashboardLoadingSkeleton />}>
           {children}
         </Suspense>
