@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### ✨ Added
+- **v0.2 Health Metrics Components** - In progress
+  - Database migration for health_metrics table with ENUM type
+  - RLS policies for family data isolation
+  - Zod validation schemas for all metric types
+  - MetricTypePicker grid component for metric selection
+  - MetricValueInput adaptive input (single/dual for BP)
+  - MetricCard display with status badge and timestamp
+  - MetricStatusBadge with color-coded status (normal/warning/danger)
+  - TimeRangeSelector component (1W, 1M, 3M, 1Y, ALL)
+  - MetricChart with Recharts, reference lines, custom tooltip
+  - BloodPressureChart wrapper with systolic/diastolic legend
+  - WeightChart wrapper with current weight and change stats
+  - GenericMetricChart for temperature, heart rate, blood sugar, SpO2
+  - Installed recharts@3.7.0 for interactive charts
 - **v0.1 Family Profiles & Dashboard** - Complete milestone
   - Dashboard layout with header, mobile menu, and user dropdown
   - Family overview page with member cards and health status

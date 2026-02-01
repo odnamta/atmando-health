@@ -30,10 +30,12 @@ export async function generateMetadata({
       title: 'Anggota Tidak Ditemukan | Atmando Health',
     }
   }
+
+  const { name } = member as { name: string }
   
   return {
-    title: `Edit Profil ${member.name} | Atmando Health`,
-    description: `Edit profil kesehatan ${member.name}`,
+    title: `Edit Profil ${name} | Atmando Health`,
+    description: `Edit profil kesehatan ${name}`,
   }
 }
 
@@ -87,6 +89,8 @@ async function getMemberWithProfile(memberId: string): Promise<MemberWithProfile
   if (!currentMember) {
     return null
   }
+
+  const { family_id: userFamilyId } = currentMember as { family_id: string; role: string }
   
   // Fetch member with health profile
   const { data: member, error } = await supabase
@@ -108,7 +112,7 @@ async function getMemberWithProfile(memberId: string): Promise<MemberWithProfile
       )
     `)
     .eq('id', memberId)
-    .eq('family_id', currentMember.family_id)
+    .eq('family_id', userFamilyId)
     .single()
   
   if (error || !member) {

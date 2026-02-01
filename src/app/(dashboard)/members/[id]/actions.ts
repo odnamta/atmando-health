@@ -152,7 +152,7 @@ export async function updateMemberProfile(
       name: input.name,
       birth_date: input.birthDate.toISOString().split('T')[0],
       avatar_url: input.avatarUrl,
-    })
+    } as never)
     .eq('id', input.memberId)
 
   if (memberError) {
@@ -176,7 +176,7 @@ export async function updateMemberProfile(
     // Update existing health profile
     const { error: profileError } = await supabase
       .from('health_profiles')
-      .update(healthProfileData)
+      .update(healthProfileData as never)
       .eq('id', input.healthProfileId)
 
     if (profileError) {
@@ -187,7 +187,7 @@ export async function updateMemberProfile(
     // Insert new health profile
     const { error: profileError } = await supabase
       .from('health_profiles')
-      .insert(healthProfileData)
+      .insert(healthProfileData as never)
 
     if (profileError) {
       console.error('Error creating health profile:', profileError)

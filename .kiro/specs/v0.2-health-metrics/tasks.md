@@ -17,37 +17,37 @@
 - [x] Create `MetricStatusBadge` component
 - [x] Create `MetricChart` with Recharts
 - [x] Create `TimeRangeSelector` component
-- [~] Create `AddMetricSheet` bottom sheet
+- [x] Create `AddMetricSheet` bottom sheet
 
 ### Validation
 - [x] Create Zod schemas for each metric type
 - [x] Implement range validation
 - [x] Add alert threshold detection
-- [~] Create validation feedback UI
+- [x] Create validation feedback UI
 
 ### Pages
-- [~] Create `/health` list page
-- [~] Create `/health/add` route (or modal)
-- [~] Create `/health/[id]` edit page
-- [~] Add health tab to member profile
+- [x] Create `/health` list page
+- [x] Create `/health/add` route (or modal)
+- [x] Create `/health/[id]` edit page
+- [ ] Add health tab to member profile
 
 ### Data Fetching
-- [~] Create `getHealthMetrics` server action
-- [~] Create `addHealthMetric` server action
-- [~] Create `updateHealthMetric` server action
-- [~] Create `deleteHealthMetric` server action
+- [x] Create `getHealthMetrics` server action
+- [x] Create `addHealthMetric` server action
+- [x] Create `updateHealthMetric` server action
+- [x] Create `deleteHealthMetric` server action
 
 ### Charts
 - [x] Install and configure Recharts
 - [x] Create `BloodPressureChart` component
 - [x] Create `WeightChart` component
-- [ ] Create `GenericMetricChart` component
+- [x] Create `GenericMetricChart` component
 - [x] Add reference lines for normal ranges
 
 ### Polish
-- [~] Add loading states
-- [~] Add empty states
-- [~] Add error handling
-- [~] Test chart responsiveness
+- [x] Add loading states
+- [x] Add empty states
+- [x] Add error handling
+- [ ] Test chart responsiveness
 
 ## Estimated Time: 2 days

@@ -103,6 +103,20 @@ export type Database = {
           created_at?: string
           created_by?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "health_metrics_family_id_fkey"
+            columns: ["family_id"]
+            referencedRelation: "families"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "health_metrics_member_id_fkey"
+            columns: ["member_id"]
+            referencedRelation: "family_members"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       medical_documents: {
         Row: {
