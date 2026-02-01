@@ -622,6 +622,112 @@ export type Database = {
           sort_order?: number
         }
       }
+      health_growth_records: {
+        Row: {
+          id: string
+          family_id: string
+          member_id: string
+          measured_at: string
+          height_cm: number | null
+          weight_kg: number | null
+          head_circumference_cm: number | null
+          height_percentile: number | null
+          weight_percentile: number | null
+          bmi_percentile: number | null
+          head_circumference_percentile: number | null
+          bmi: number | null
+          age_months: number | null
+          notes: string | null
+          source: string
+          created_at: string
+          created_by: string | null
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          family_id: string
+          member_id: string
+          measured_at: string
+          height_cm?: number | null
+          weight_kg?: number | null
+          head_circumference_cm?: number | null
+          height_percentile?: number | null
+          weight_percentile?: number | null
+          bmi_percentile?: number | null
+          head_circumference_percentile?: number | null
+          bmi?: number | null
+          age_months?: number | null
+          notes?: string | null
+          source?: string
+          created_at?: string
+          created_by?: string | null
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          family_id?: string
+          member_id?: string
+          measured_at?: string
+          height_cm?: number | null
+          weight_kg?: number | null
+          head_circumference_cm?: number | null
+          height_percentile?: number | null
+          weight_percentile?: number | null
+          bmi_percentile?: number | null
+          head_circumference_percentile?: number | null
+          bmi?: number | null
+          age_months?: number | null
+          notes?: string | null
+          source?: string
+          created_at?: string
+          created_by?: string | null
+          updated_at?: string
+        }
+      }
+      health_milestones: {
+        Row: {
+          id: string
+          family_id: string
+          member_id: string
+          milestone_type: 'motor' | 'language' | 'social' | 'cognitive'
+          milestone_name: string
+          achieved_date: string | null
+          age_months: number | null
+          notes: string | null
+          photo_url: string | null
+          created_at: string
+          created_by: string | null
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          family_id: string
+          member_id: string
+          milestone_type: 'motor' | 'language' | 'social' | 'cognitive'
+          milestone_name: string
+          achieved_date?: string | null
+          age_months?: number | null
+          notes?: string | null
+          photo_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          family_id?: string
+          member_id?: string
+          milestone_type?: 'motor' | 'language' | 'social' | 'cognitive'
+          milestone_name?: string
+          achieved_date?: string | null
+          age_months?: number | null
+          notes?: string | null
+          photo_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          updated_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -659,6 +765,8 @@ export type Vaccination = Tables<'vaccinations'>
 export type VaccinationSchedule = Tables<'vaccination_schedule'>
 export type EmergencyToken = Tables<'emergency_tokens'>
 export type HealthConnectedAccount = Tables<'health_connected_accounts'>
+export type GrowthRecord = Tables<'health_growth_records'>
+export type Milestone = Tables<'health_milestones'>
 
 // Insert types
 export type InsertHealthProfile = InsertTables<'health_profiles'>
@@ -672,6 +780,23 @@ export type UpdateHealthProfile = UpdateTables<'health_profiles'>
 export type UpdateMedicalDocument = UpdateTables<'medical_documents'>
 export type UpdateVaccination = UpdateTables<'vaccinations'>
 export type UpdateDoctorVisit = UpdateTables<'doctor_visits'>
+
+// Growth types
+export type InsertGrowthRecord = InsertTables<'health_growth_records'>
+export type UpdateGrowthRecord = UpdateTables<'health_growth_records'>
+export type InsertMilestone = InsertTables<'health_milestones'>
+export type UpdateMilestone = UpdateTables<'health_milestones'>
+export type MilestoneType = Milestone['milestone_type']
+
+// Growth record with member info
+export type GrowthRecordWithMember = GrowthRecord & {
+  family_members: Pick<FamilyMember, 'id' | 'name' | 'avatar_url' | 'birth_date'> | null
+}
+
+// Milestone with member info
+export type MilestoneWithMember = Milestone & {
+  family_members: Pick<FamilyMember, 'id' | 'name' | 'avatar_url'> | null
+}
 
 export type FamilyRole = FamilyMember['role']
 export type MetricType = HealthMetric['metric_type']

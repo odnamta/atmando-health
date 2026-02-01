@@ -35,6 +35,7 @@ const LABELS = {
     visits: 'Kunjungan Dokter',
     emergency: 'Kartu Darurat',
     fitness: 'Fitness',
+    growth: 'Pertumbuhan',
     settings: 'Pengaturan',
   },
   user: {
@@ -51,6 +52,7 @@ const NAV_ITEMS = [
   { href: '/dashboard', label: LABELS.navigation.dashboard },
   { href: '/members', label: LABELS.navigation.members },
   { href: '/health', label: LABELS.navigation.health },
+  { href: '/growth', label: LABELS.navigation.growth },
   { href: '/documents', label: LABELS.navigation.documents },
   { href: '/vaccinations', label: LABELS.navigation.vaccinations },
   { href: '/medications', label: LABELS.navigation.medications },

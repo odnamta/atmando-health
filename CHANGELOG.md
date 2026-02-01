@@ -8,6 +8,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### ✨ Added
+- **v0.9 WHO Growth Charts** - Implementation complete
+  - `/growth` page listing children for growth tracking
+  - `/growth/[memberId]` page with WHO growth charts
+  - WHO growth standards data for 0-60 months (0-5 years)
+  - Height-for-age, weight-for-age, BMI-for-age charts
+  - Head circumference tracking
+  - Percentile calculation using LMS method
+  - Interactive charts with WHO percentile bands (3rd, 15th, 50th, 85th, 97th)
+  - GrowthChart component with Recharts visualization
+  - GrowthSummary component showing latest measurements with percentiles
+  - PercentileBadge component with status indicators
+  - MilestoneTimeline component for developmental milestones
+  - AddGrowthRecordSheet for recording measurements
+  - AddMilestoneSheet for recording milestones
+  - Milestone categories: motor, language, social, cognitive
+  - Common milestone suggestions for each category
+  - Database tables: `health_growth_records`, `health_milestones`
+  - RLS policies for growth data (family-level access)
+  - API routes: `/api/growth`, `/api/milestones`
+  - Growth utilities: percentile calculation, WHO LMS data
+  - Indonesian labels for all UI elements
+
 - **v0.8 Garmin Connect Integration** - Implementation complete (requires Garmin developer credentials)
   - `/fitness` page for fitness data dashboard
   - Garmin OAuth 1.0a flow implementation
