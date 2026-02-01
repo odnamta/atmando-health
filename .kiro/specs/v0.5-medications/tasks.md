@@ -1,48 +1,50 @@
 # v0.5 - Medication Tracking - Tasks
 
 **Version:** v0.5.0
+**Status:** ✅ Complete (Core Features)
 
 ## Tasks
 
 ### Database
-- [ ] Create `health_medications` table (if not exists)
-- [ ] Create `health_medication_logs` table
-- [ ] Add RLS policies
-- [ ] Generate TypeScript types
+- [x] Create `medications` table (already exists)
+- [x] Create `medication_logs` table (already exists)
+- [x] Add RLS policies (already configured)
+- [x] Add TypeScript types and constants
 
 ### Components
-- [ ] Create `MedicationCard` component
-- [ ] Create `TodayMedicationCard` component
-- [ ] Create `AddMedicationSheet` component
-- [ ] Create `FrequencySelect` component
-- [ ] Create `InstructionsSelect` component
-- [ ] Create `AdherenceCalendar` component
-- [ ] Create `AdherenceSummary` component
+- [x] Create `MedicationCard` component
+- [x] Create `TodayMedicationCard` component
+- [x] Create `AddMedicationSheet` component
+- [x] Frequency selector (integrated in AddMedicationSheet)
+- [x] Instructions selector (integrated in AddMedicationSheet)
+- [ ] Create `AdherenceCalendar` component (P2 - future)
+- [x] Adherence stats display (in detail page)
 
 ### Pages
-- [ ] Create `/medications` page
-- [ ] Create `/medications/add` page
-- [ ] Create `/medications/[id]` page
-- [ ] Add medications tab to member profile
+- [x] Create `/medications` page
+- [x] Create `/medications/[id]` page with detail view
+- [x] Add loading states for all pages
+- [ ] Add medications tab to member profile (P2 - future)
 
 ### Data Fetching
-- [ ] Create `getMedications` server action
-- [ ] Create `getTodayMedications` server action
-- [ ] Create `addMedication` server action
-- [ ] Create `logMedicationTaken` server action
-- [ ] Create `logMedicationSkipped` server action
-- [ ] Create `getAdherenceStats` server action
+- [x] Create `getMedications` server action
+- [x] Create `getTodayMedications` server action
+- [x] Create `createMedication` server action
+- [x] Create `updateMedication` server action
+- [x] Create `deleteMedication` server action
+- [x] Create `logMedication` server action (handles taken/skipped/late)
+- [x] Create `getAdherenceStats` server action
 
-### Reminder System
+### Reminder System (P1 - v0.7)
 - [ ] Set up Web Push notifications
 - [ ] Create notification scheduling logic
 - [ ] Handle notification clicks
 - [ ] Implement quiet hours
 
 ### Polish
-- [ ] Add loading states
-- [ ] Add empty states
-- [ ] Add error handling
-- [ ] Test reminder flow
+- [x] Add loading states
+- [x] Add empty states
+- [x] Add error handling
+- [x] Toast notifications for all actions
 
-## Estimated Time: 1.5 days
+## Completed: 1 Feb 2026

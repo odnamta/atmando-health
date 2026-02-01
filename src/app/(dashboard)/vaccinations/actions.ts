@@ -85,12 +85,14 @@ export async function createVaccination(data: Omit<InsertVaccination, 'created_b
     return { error: 'Tidak terautentikasi' }
   }
   
+  const insertData = {
+    ...data,
+    created_by: user.id,
+  }
+  
   const { data: vaccination, error } = await supabase
     .from('vaccinations')
-    .insert({
-      ...data,
-      created_by: user.id,
-    })
+    .insert(insertData as never)
     .select()
     .single()
   
@@ -109,12 +111,14 @@ export async function createVaccination(data: Omit<InsertVaccination, 'created_b
 export async function updateVaccination(id: string, data: UpdateVaccination) {
   const supabase = await createClient()
   
+  const updateData = {
+    ...data,
+    updated_at: new Date().toISOString(),
+  }
+  
   const { data: vaccination, error } = await supabase
     .from('vaccinations')
-    .update({
-      ...data,
-      updated_at: new Date().toISOString(),
-    })
+    .update(updateData as never)
     .eq('id', id)
     .select()
     .single()

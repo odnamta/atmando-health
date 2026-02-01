@@ -620,3 +620,34 @@ export const BLOOD_TYPE_OPTIONS: BloodType[] = [
 export type FamilyMemberWithProfile = FamilyMember & {
   health_profiles: HealthProfile | null
 }
+
+// Medication frequency labels in Indonesian
+export const MEDICATION_FREQUENCIES: Record<string, string> = {
+  once_daily: 'Sekali sehari',
+  twice_daily: '2x sehari',
+  three_times_daily: '3x sehari',
+  four_times_daily: '4x sehari',
+  every_8_hours: 'Setiap 8 jam',
+  every_12_hours: 'Setiap 12 jam',
+  as_needed: 'Bila perlu',
+  weekly: 'Seminggu sekali',
+  monthly: 'Sebulan sekali',
+} as const
+
+// Medication instruction labels in Indonesian
+export const MEDICATION_INSTRUCTIONS: Record<string, string> = {
+  before_meal: 'Sebelum makan',
+  after_meal: 'Sesudah makan',
+  with_meal: 'Bersama makan',
+  empty_stomach: 'Perut kosong',
+  before_sleep: 'Sebelum tidur',
+  morning: 'Pagi hari',
+} as const
+
+// Medication with member info
+export type MedicationWithMember = Medication & {
+  family_members: Pick<FamilyMember, 'id' | 'name' | 'avatar_url'> | null
+}
+
+// Medication log status type
+export type MedicationLogStatus = MedicationLog['status']

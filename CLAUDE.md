@@ -1,7 +1,7 @@
-# Atmando Health - Project Context
+# Atmando Health - Project Context for Claude Code
 
-> **Sync Note**: Keep this file in sync with `CLAUDE.md` in project root.
-> When updating this file, also update CLAUDE.md to maintain consistency.
+> **Sync Note**: Keep this file in sync with `.kiro/steering/project-context.md` for Kiro.
+> When updating this file, also update the Kiro steering file to maintain consistency.
 
 ## Project Overview
 
@@ -13,17 +13,15 @@
 
 ## Tech Stack
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Next.js | 15.x | App Router, Server Components |
-| TypeScript | 5.x | Strict mode enabled |
-| Supabase | Latest | Database, Auth, Storage |
-| Tailwind CSS | 4.x | Styling |
-| shadcn/ui | Latest | UI components (new-york theme) |
-| Recharts | Latest | Interactive charts |
-| date-fns | 3.x | Date formatting with Indonesian locale |
-| Zod | 3.x | Schema validation |
-| React Hook Form | 7.x | Form handling |
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript (strict mode)
+- **Database**: Supabase (PostgreSQL) - ~20 tables
+- **Auth**: Supabase Auth
+- **Styling**: TailwindCSS 4.x + shadcn/ui (new-york theme)
+- **Charts**: Recharts
+- **Forms**: React Hook Form + Zod
+- **Dates**: date-fns (Indonesian locale)
+- **Deployment**: Vercel
 
 ## Key Commands
 
@@ -72,15 +70,15 @@ src/
 └── middleware.ts              # Auth middleware
 ```
 
-## Roles & Access
+## Roles (5 total)
 
-| Role | Description | Permissions |
-|------|-------------|-------------|
-| admin | Full access (Dio) | All operations, delete, manage users |
-| parent | Health manager (Celline) | Add/edit entries, no delete |
-| child | Subject (Alma, Sofia) | Limited access |
-| staff | Helper | Can add entries |
-| viewer | Extended family | Read-only, selected data |
+```
+- admin      # Full access (Dio) - can delete, manage users
+- parent     # Full health access (Celline) - can add/edit, no delete
+- child      # Subject of tracking (Alma, Sofia) - limited access
+- staff      # Helper access - can add entries
+- viewer     # Read-only (extended family) - view selected data only
+```
 
 ## Critical Business Rules
 
@@ -90,7 +88,7 @@ src/
 4. **Indonesian Locale**: All dates/numbers formatted for Indonesian users
 5. **File Limits**: Documents max 10MB, PDF/JPG/PNG only
 
-## Date & Number Formatting
+## Date & Currency Formatting (IMPORTANT)
 
 Always use centralized formatters from `lib/utils/format.ts`:
 
@@ -107,7 +105,19 @@ import {
 } from '@/lib/utils/format'
 ```
 
-**DO NOT use**: `toLocaleDateString()`, `new Intl.DateTimeFormat()` directly.
+**DO NOT use**: `toLocaleDateString()`, `new Intl.DateTimeFormat()` directly, or hardcoded date formats.
+
+## Health Metric Validation
+
+Use validation from `lib/utils/health.ts`:
+
+```typescript
+import {
+  METRIC_CONFIGS,       // Validation ranges per metric type
+  getMetricStatus,      // Returns 'normal' | 'warning' | 'danger'
+  validateMetricValue,  // Check if value is in valid range
+} from '@/lib/utils/health'
+```
 
 ## Database Patterns
 
@@ -130,7 +140,7 @@ if (error) {
 
 ## Current State (February 2026)
 
-- **Completed**: v0.1-v0.5 (Profiles, Metrics, Documents, Vaccinations, Medications)
+- **Completed**: v0.1 (Profiles), v0.2 (Metrics), v0.3 (Documents), v0.4 (Vaccinations/Visits), v0.5 (Medications)
 - **Next**: v0.6 (Emergency Card), v0.7 (Notifications), v0.8 (Garmin), v0.9 (Growth Charts)
 - **TypeScript**: 0 errors
 - **ESLint**: Minor warnings only
@@ -163,10 +173,41 @@ if (error) {
 4. Write meaningful commit messages
 5. Update CHANGELOG.md for significant changes
 
+## Common Patterns
+
+```typescript
+// Server action pattern
+'use server'
+export async function createSomething(data: InsertType) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Tidak terautentikasi' }
+  
+  const { data: result, error } = await supabase
+    .from('table')
+    .insert({ ...data, created_by: user.id })
+    .select()
+    .single()
+  
+  if (error) return { error: 'Gagal menyimpan data' }
+  
+  revalidatePath('/path')
+  return { data: result }
+}
+
+// Form with react-hook-form + zod
+const schema = z.object({
+  name: z.string().min(1, 'Nama wajib diisi'),
+  value: z.number().min(0).max(500),
+})
+const form = useForm({ resolver: zodResolver(schema) })
+```
+
 ## Quick References
 
 - Supabase Dashboard: https://supabase.com/dashboard/project/eoywypjbilsedasmytsu
 - Vercel Dashboard: https://vercel.com/[TEAM]/atmando-health
+- GitHub Repo: https://github.com/[USER]/atmando-health
 
 ## Active Sprint Tasks
 
@@ -179,15 +220,8 @@ if (error) {
 ## Recent Changes
 
 - 2026-02-01: Created CLAUDE.md, restructured project-context.md for consistency
-- 2026-02-01: v0.5.0 - Medications Tracking (today's meds, take/skip logging, adherence stats)
+- 2026-02-01: v0.5.0 - Medications Tracking (today's meds, take/skip logging, adherence stats, detail page)
 - 2026-02-01: v0.4.0 - Vaccinations & Visits (IDAI schedule, due/overdue alerts, visit logging)
 - 2026-02-01: v0.3.0 - Medical Documents (upload, categories, viewer, search)
 - 2026-01-31: v0.2.0 - Health Metrics (entry, charts, validation, status badges)
 - 2026-01-31: v0.1.0 - Profiles & Dashboard (family overview, member cards, profile editing)
-
-## File References
-
-For detailed documentation, see:
-- Database schema: #[[file:.kiro/steering/database-schema.md]]
-- Formatting standards: #[[file:.kiro/steering/formatting-standards.md]]
-- User guide: #[[file:.kiro/steering/user-guide.md]]

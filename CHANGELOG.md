@@ -7,7 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 📝 Docs
+- Created CLAUDE.md for Claude Code compatibility (mirrors project-context.md)
+- Restructured project-context.md to match CLAUDE.md format
+- Added sync notes between CLAUDE.md and .kiro/steering/project-context.md
+- Consolidated active sprint tasks and recent changes sections
+- Added quick reference links and common patterns
+
 ### ✨ Added
+- **v0.5 Medication Tracking** - Complete milestone
+  - `/medications` page with today's medications and active/completed lists
+  - Medication recording with dosage, frequency, and instructions
+  - TodayMedicationCard with take/skip buttons and progress tracking
+  - MedicationCard with member info and status badges
+  - AddMedicationSheet with frequency and instruction selectors
+  - `/medications/[id]` detail page with adherence stats
+  - Medication logging (taken/skipped/late) with timestamps
+  - Adherence statistics (30-day rolling window)
+  - Delete medication with confirmation dialog
+  - Toggle active/completed status
+  - Server actions: getMedications, getTodayMedications, createMedication, updateMedication, deleteMedication, logMedication, getAdherenceStats
+  - Indonesian labels for medication frequencies and instructions
+  - Loading skeletons for medications pages
 - **v0.4 Vaccinations & Doctor Visits** - Complete milestone
   - `/vaccinations` page with IDAI schedule integration
   - Vaccination recording with dose tracking

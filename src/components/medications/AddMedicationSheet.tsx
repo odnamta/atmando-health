@@ -30,55 +30,50 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { createVaccination } from '@/app/(dashboard)/vaccinations/actions'
-import type { FamilyMember, VaccinationSchedule } from '@/lib/types/database'
+import { createMedication } from '@/app/(dashboard)/medications/actions'
+import { MEDICATION_FREQUENCIES, MEDICATION_INSTRUCTIONS } from '@/lib/types/database'
+import type { FamilyMember } from '@/lib/types/database'
 
 const formSchema = z.object({
   member_id: z.string().min(1, 'Pilih anggota keluarga'),
-  vaccine_name: z.string().min(1, 'Nama vaksin wajib diisi'),
-  vaccine_code: z.string().optional(),
-  dose_number: z.number().min(1),
-  date_given: z.string().optional(),
-  date_due: z.string().optional(),
-  location: z.string().optional(),
-  administered_by: z.string().optional(),
-  batch_number: z.string().optional(),
+  name: z.string().min(1, 'Nama obat wajib diisi'),
+  dosage: z.string().min(1, 'Dosis wajib diisi'),
+  frequency: z.string().min(1, 'Frekuensi wajib dipilih'),
+  instructions: z.string().optional(),
+  start_date: z.string().min(1, 'Tanggal mulai wajib diisi'),
+  end_date: z.string().optional(),
+  prescribing_doctor: z.string().optional(),
   notes: z.string().optional(),
 })
 
 type FormData = z.infer<typeof formSchema>
 
-interface AddVaccinationSheetProps {
+interface AddMedicationSheetProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   members: Pick<FamilyMember, 'id' | 'name' | 'family_id'>[]
-  schedule: VaccinationSchedule[]
   defaultMemberId?: string
-  defaultVaccine?: VaccinationSchedule
 }
 
-export function AddVaccinationSheet({
+export function AddMedicationSheet({
   open,
   onOpenChange,
   members,
-  schedule,
   defaultMemberId,
-  defaultVaccine,
-}: AddVaccinationSheetProps) {
+}: AddMedicationSheetProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       member_id: defaultMemberId || '',
-      vaccine_name: defaultVaccine?.vaccine_name || '',
-      vaccine_code: defaultVaccine?.vaccine_code || '',
-      dose_number: defaultVaccine?.dose_number || 1,
-      date_given: format(new Date(), 'yyyy-MM-dd'),
-      date_due: '',
-      location: '',
-      administered_by: '',
-      batch_number: '',
+      name: '',
+      dosage: '',
+      frequency: '',
+      instructions: '',
+      start_date: format(new Date(), 'yyyy-MM-dd'),
+      end_date: '',
+      prescribing_doctor: '',
       notes: '',
     },
   })
@@ -90,17 +85,16 @@ export function AddVaccinationSheet({
     
     setIsSubmitting(true)
     try {
-      const result = await createVaccination({
+      const result = await createMedication({
         family_id: selectedMember.family_id,
         member_id: data.member_id,
-        vaccine_name: data.vaccine_name,
-        vaccine_code: data.vaccine_code || null,
-        dose_number: data.dose_number,
-        date_given: data.date_given || null,
-        date_due: data.date_due || null,
-        location: data.location || null,
-        administered_by: data.administered_by || null,
-        batch_number: data.batch_number || null,
+        name: data.name,
+        dosage: data.dosage,
+        frequency: data.frequency,
+        instructions: data.instructions || null,
+        start_date: data.start_date,
+        end_date: data.end_date || null,
+        prescribing_doctor: data.prescribing_doctor || null,
         notes: data.notes || null,
       })
       
@@ -109,7 +103,7 @@ export function AddVaccinationSheet({
         return
       }
       
-      toast.success('Vaksinasi berhasil dicatat')
+      toast.success('Obat berhasil ditambahkan')
       form.reset()
       onOpenChange(false)
     } catch {
@@ -118,23 +112,12 @@ export function AddVaccinationSheet({
       setIsSubmitting(false)
     }
   }
-  
-  const handleVaccineSelect = (vaccineName: string) => {
-    const vaccine = schedule.find(v => 
-      `${v.vaccine_name}-${v.dose_number}` === vaccineName
-    )
-    if (vaccine) {
-      form.setValue('vaccine_name', vaccine.vaccine_name)
-      form.setValue('vaccine_code', vaccine.vaccine_code || '')
-      form.setValue('dose_number', vaccine.dose_number)
-    }
-  }
-  
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="overflow-y-auto">
         <SheetHeader>
-          <SheetTitle>Catat Vaksinasi</SheetTitle>
+          <SheetTitle>Tambah Obat</SheetTitle>
         </SheetHeader>
         
         <Form {...form}>
@@ -164,33 +147,14 @@ export function AddVaccinationSheet({
               )}
             />
             
-            <FormItem>
-              <FormLabel>Pilih dari Jadwal IDAI</FormLabel>
-              <Select onValueChange={handleVaccineSelect}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Pilih vaksin dari jadwal" />
-                </SelectTrigger>
-                <SelectContent>
-                  {schedule.map((v) => (
-                    <SelectItem 
-                      key={`${v.vaccine_name}-${v.dose_number}`} 
-                      value={`${v.vaccine_name}-${v.dose_number}`}
-                    >
-                      {v.vaccine_name} {v.dose_number > 1 ? `(Dosis ${v.dose_number})` : ''}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </FormItem>
-            
             <FormField
               control={form.control}
-              name="vaccine_name"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nama Vaksin</FormLabel>
+                  <FormLabel>Nama Obat</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Contoh: BCG, DPT, MMR" />
+                    <Input {...field} placeholder="Contoh: Paracetamol" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -199,17 +163,12 @@ export function AddVaccinationSheet({
             
             <FormField
               control={form.control}
-              name="dose_number"
+              name="dosage"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Dosis ke-</FormLabel>
+                  <FormLabel>Dosis</FormLabel>
                   <FormControl>
-                    <Input 
-                      type="number" 
-                      min={1} 
-                      value={field.value}
-                      onChange={(e) => field.onChange(parseInt(e.target.value) || 1)}
-                    />
+                    <Input {...field} placeholder="Contoh: 500mg, 1 tablet" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -218,13 +177,24 @@ export function AddVaccinationSheet({
             
             <FormField
               control={form.control}
-              name="date_given"
+              name="frequency"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Tanggal Pemberian</FormLabel>
-                  <FormControl>
-                    <Input type="date" {...field} />
-                  </FormControl>
+                  <FormLabel>Frekuensi</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pilih frekuensi" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {Object.entries(MEDICATION_FREQUENCIES).map(([value, label]) => (
+                        <SelectItem key={value} value={value}>
+                          {label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -232,40 +202,67 @@ export function AddVaccinationSheet({
             
             <FormField
               control={form.control}
-              name="location"
+              name="instructions"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Lokasi</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="RS/Klinik/Puskesmas" />
-                  </FormControl>
+                  <FormLabel>Petunjuk Minum</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pilih petunjuk (opsional)" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {Object.entries(MEDICATION_INSTRUCTIONS).map(([value, label]) => (
+                        <SelectItem key={value} value={label}>
+                          {label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
             
-            <FormField
-              control={form.control}
-              name="administered_by"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Diberikan oleh</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Nama dokter/bidan" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="start_date"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tanggal Mulai</FormLabel>
+                    <FormControl>
+                      <Input type="date" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="end_date"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tanggal Selesai</FormLabel>
+                    <FormControl>
+                      <Input type="date" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             
             <FormField
               control={form.control}
-              name="batch_number"
+              name="prescribing_doctor"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nomor Batch</FormLabel>
+                  <FormLabel>Dokter yang Meresepkan</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Opsional" />
+                    <Input {...field} placeholder="Nama dokter (opsional)" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
