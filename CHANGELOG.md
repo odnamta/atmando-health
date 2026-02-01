@@ -8,7 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### ✨ Added
-- **v0.2 Health Metrics Components** - In progress
+- **v0.2 Health Metrics Pages & Actions** - Complete milestone
+  - `/health` list page with member/type filtering and chart display
+  - `/health/[id]` edit page with delete confirmation dialog
+  - `AddMetricSheet` bottom sheet for adding new metrics
+  - Server actions: getHealthMetrics, addHealthMetric, updateHealthMetric, deleteHealthMetric
+  - Loading skeletons for health pages
+  - Empty states for no data scenarios
+  - Alert-dialog component for delete confirmation
+- **v0.2 Health Metrics Components** - Complete
   - Database migration for health_metrics table with ENUM type
   - RLS policies for family data isolation
   - Zod validation schemas for all metric types
