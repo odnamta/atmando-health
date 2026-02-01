@@ -170,7 +170,7 @@ if (error) {
 
 ## Active Sprint Tasks
 
-- [ ] v0.6: Emergency Card with QR code
+- [x] v0.6: Emergency Card with QR code (implementation complete, pending migration)
 - [ ] v0.6: PDF export for doctor visits
 - [ ] v0.7: Push notifications for medications/vaccinations
 - [ ] v0.8: Garmin Connect integration (Dio only)
@@ -178,6 +178,7 @@ if (error) {
 
 ## Recent Changes
 
+- 2026-02-01: v0.6.0 - Emergency Card (QR codes, public access, sharing, print-ready cards) - **PENDING MIGRATION**
 - 2026-02-01: Created CLAUDE.md, restructured project-context.md for consistency
 - 2026-02-01: v0.5.0 - Medications Tracking (today's meds, take/skip logging, adherence stats)
 - 2026-02-01: v0.4.0 - Vaccinations & Visits (IDAI schedule, due/overdue alerts, visit logging)

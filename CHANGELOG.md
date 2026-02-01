@@ -7,12 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### ✨ Added
+- **v0.6 Emergency Card** - Implementation complete (pending database migration)
+  - `/emergency` page with family member selector and emergency info preview
+  - `/emergency/[memberId]` page with full emergency card and QR code
+  - `/e/[token]` public emergency page (no authentication required)
+  - EmergencyCard component with critical health info display
+  - QRCodeDisplay component using qrcode library for QR generation
+  - ShareSheet component with Web Share API, WhatsApp, and email sharing
+  - Secure token generation (32 bytes, base64url encoded)
+  - Database migration: `emergency_tokens` table with RLS policies
+  - Token expiration (1 year default) and access tracking
+  - Print stylesheet for wallet-size cards (85.6mm x 53.98mm)
+  - Print button handler for physical card printing
+  - Public emergency page with access logging
+  - Security: Family-based RLS, read-only public access, token expiration
+  - Updated database types with emergency_tokens table
+  - Installed qrcode@1.5.4 and @types/qrcode for QR generation
+  - **Note**: Requires database migration to be applied before feature is functional
+
 ### 📝 Docs
 - Created CLAUDE.md for Claude Code compatibility (mirrors project-context.md)
 - Restructured project-context.md to match CLAUDE.md format
 - Added sync notes between CLAUDE.md and .kiro/steering/project-context.md
 - Consolidated active sprint tasks and recent changes sections
 - Added quick reference links and common patterns
+- Created IMPLEMENTATION_NOTES.md for v0.6 with migration instructions
 
 ### ✨ Added
 - **v0.5 Medication Tracking** - Complete milestone

@@ -471,6 +471,38 @@ export type Database = {
           updated_at?: string
         }
       }
+      emergency_tokens: {
+        Row: {
+          id: string
+          family_member_id: string
+          token: string
+          expires_at: string
+          access_count: number
+          last_accessed_at: string | null
+          created_at: string
+          created_by: string
+        }
+        Insert: {
+          id?: string
+          family_member_id: string
+          token: string
+          expires_at?: string
+          access_count?: number
+          last_accessed_at?: string | null
+          created_at?: string
+          created_by: string
+        }
+        Update: {
+          id?: string
+          family_member_id?: string
+          token?: string
+          expires_at?: string
+          access_count?: number
+          last_accessed_at?: string | null
+          created_at?: string
+          created_by?: string
+        }
+      }
       vaccination_schedule: {
         Row: {
           id: string
@@ -511,7 +543,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_or_create_emergency_token: {
+        Args: {
+          member_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
@@ -536,6 +573,7 @@ export type DoctorVisit = Tables<'doctor_visits'>
 export type HealthProfile = Tables<'health_profiles'>
 export type Vaccination = Tables<'vaccinations'>
 export type VaccinationSchedule = Tables<'vaccination_schedule'>
+export type EmergencyToken = Tables<'emergency_tokens'>
 
 // Insert types
 export type InsertHealthProfile = InsertTables<'health_profiles'>
