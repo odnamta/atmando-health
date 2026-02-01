@@ -5,49 +5,49 @@
 ## Tasks
 
 ### Database
-- [ ] Create `health_metrics` table migration
-- [ ] Add RLS policies
-- [ ] Create indexes for performance
-- [ ] Generate TypeScript types
+- [x] Create `health_metrics` table migration
+- [x] Add RLS policies
+- [x] Create indexes for performance
+- [x] Generate TypeScript types
 
 ### Components
-- [ ] Create `MetricTypePicker` grid component
-- [ ] Create `MetricValueInput` adaptive input
-- [ ] Create `MetricCard` display component
-- [ ] Create `MetricStatusBadge` component
-- [ ] Create `MetricChart` with Recharts
-- [ ] Create `TimeRangeSelector` component
-- [ ] Create `AddMetricSheet` bottom sheet
+- [x] Create `MetricTypePicker` grid component
+- [x] Create `MetricValueInput` adaptive input
+- [x] Create `MetricCard` display component
+- [x] Create `MetricStatusBadge` component
+- [x] Create `MetricChart` with Recharts
+- [x] Create `TimeRangeSelector` component
+- [~] Create `AddMetricSheet` bottom sheet
 
 ### Validation
-- [ ] Create Zod schemas for each metric type
-- [ ] Implement range validation
-- [ ] Add alert threshold detection
-- [ ] Create validation feedback UI
+- [x] Create Zod schemas for each metric type
+- [x] Implement range validation
+- [x] Add alert threshold detection
+- [~] Create validation feedback UI
 
 ### Pages
-- [ ] Create `/health` list page
-- [ ] Create `/health/add` route (or modal)
-- [ ] Create `/health/[id]` edit page
-- [ ] Add health tab to member profile
+- [~] Create `/health` list page
+- [~] Create `/health/add` route (or modal)
+- [~] Create `/health/[id]` edit page
+- [~] Add health tab to member profile
 
 ### Data Fetching
-- [ ] Create `getHealthMetrics` server action
-- [ ] Create `addHealthMetric` server action
-- [ ] Create `updateHealthMetric` server action
-- [ ] Create `deleteHealthMetric` server action
+- [~] Create `getHealthMetrics` server action
+- [~] Create `addHealthMetric` server action
+- [~] Create `updateHealthMetric` server action
+- [~] Create `deleteHealthMetric` server action
 
 ### Charts
-- [ ] Install and configure Recharts
-- [ ] Create `BloodPressureChart` component
-- [ ] Create `WeightChart` component
+- [x] Install and configure Recharts
+- [x] Create `BloodPressureChart` component
+- [x] Create `WeightChart` component
 - [ ] Create `GenericMetricChart` component
-- [ ] Add reference lines for normal ranges
+- [x] Add reference lines for normal ranges
 
 ### Polish
-- [ ] Add loading states
-- [ ] Add empty states
-- [ ] Add error handling
-- [ ] Test chart responsiveness
+- [~] Add loading states
+- [~] Add empty states
+- [~] Add error handling
+- [~] Test chart responsiveness
 
 ## Estimated Time: 2 days
