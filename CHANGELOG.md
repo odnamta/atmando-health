@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### ✨ Added
+- **v0.3 Medical Documents** - Complete milestone
+  - `/documents` list page with search, member filter, and category filter
+  - Document upload via drag-drop sheet with metadata form
+  - Document viewer modal with PDF/image preview
+  - Delete document with confirmation dialog (admin only)
+  - Database: `health_document_categories` table with RLS
+  - Database: Enhanced `medical_documents` with category_id, ocr_text, tags
+  - Database: Full-text search index on title, notes, ocr_text
+  - Storage: `health-documents` bucket (10MB, PDF/JPG/PNG)
+  - Storage: RLS policies for family-scoped access
+  - Server actions: getDocuments, uploadDocument, deleteDocument, getCategories
+  - Components: DocumentCard, DocumentGrid, DocumentUploader, DocumentViewer, CategorySelect
+  - Hooks: useDebounce for search optimization
+  - Installed react-dropzone for drag-drop uploads
 - **v0.2 Health Metrics Pages & Actions** - Complete milestone
   - `/health` list page with member/type filtering and chart display
   - `/health/[id]` edit page with delete confirmation dialog

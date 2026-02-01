@@ -5,56 +5,59 @@
 ## Tasks
 
 ### Database
-- [ ] Create `health_document_categories` table
-- [ ] Create `health_documents` table
-- [ ] Add RLS policies
-- [ ] Add full-text search index
-- [ ] Seed default categories
-- [ ] Generate TypeScript types
+- [x] Create `health_document_categories` table
+- [x] Create `health_documents` table (enhanced existing `medical_documents`)
+- [x] Add RLS policies
+- [x] Add full-text search index
+- [x] Seed default categories (via function)
+- [x] Generate TypeScript types
 
 ### Storage
-- [ ] Create `health-documents` bucket
-- [ ] Configure bucket policies (10MB, PDF/JPG/PNG)
-- [ ] Add storage RLS policies
+- [x] Create `health-documents` bucket
+- [x] Configure bucket policies (10MB, PDF/JPG/PNG)
+- [x] Add storage RLS policies
 
 ### Components
-- [ ] Create `DocumentCard` component
-- [ ] Create `DocumentGrid` component
-- [ ] Create `DocumentUploader` with drag-drop
+- [x] Create `DocumentCard` component
+- [x] Create `DocumentGrid` component
+- [x] Create `DocumentUploader` with drag-drop
 - [ ] Create `FilePreview` component
-- [ ] Create `CategorySelect` component
-- [ ] Create `DocumentViewer` modal
+- [x] Create `CategorySelect` component
+- [x] Create `DocumentViewer` modal
 - [ ] Create `PDFViewer` with react-pdf
 - [ ] Create `ImageViewer` with zoom/pan
 
 ### Pages
-- [ ] Create `/documents` list page
-- [ ] Create `/documents/upload` page
+- [x] Create `/documents` list page
+- [x] Create `/documents/upload` (integrated in sheet)
 - [ ] Create `/documents/[id]` detail page
 - [ ] Add documents tab to member profile
 
 ### Data Fetching
-- [ ] Create `getDocuments` server action
-- [ ] Create `uploadDocument` server action
-- [ ] Create `deleteDocument` server action
-- [ ] Create `searchDocuments` server action
+- [x] Create `getDocuments` server action
+- [x] Create `uploadDocument` server action
+- [x] Create `deleteDocument` server action
+- [x] Create `searchDocuments` server action (integrated in getDocuments)
 
 ### File Handling
+- [x] Install react-dropzone
 - [ ] Install browser-image-compression
 - [ ] Implement client-side compression
 - [ ] Implement upload progress tracking
-- [ ] Handle upload errors gracefully
+- [x] Handle upload errors gracefully
 
 ### Search
-- [ ] Implement full-text search
-- [ ] Add debounced search input
-- [ ] Add filter by member
-- [ ] Add filter by category
+- [x] Implement full-text search
+- [x] Add debounced search input
+- [x] Add filter by member
+- [x] Add filter by category
 
 ### Polish
-- [ ] Add loading states
-- [ ] Add empty states
-- [ ] Add error handling
+- [x] Add loading states
+- [x] Add empty states
+- [x] Add error handling
 - [ ] Test large file uploads
 
 ## Estimated Time: 2 days
+
+## Completed: 1 Feb 2026

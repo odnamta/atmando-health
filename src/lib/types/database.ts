@@ -118,6 +118,38 @@ export type Database = {
           }
         ]
       }
+      health_document_categories: {
+        Row: {
+          id: string
+          family_id: string
+          name: string
+          icon: string
+          color: string
+          sort_order: number
+          is_system: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          family_id: string
+          name: string
+          icon?: string
+          color?: string
+          sort_order?: number
+          is_system?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          family_id?: string
+          name?: string
+          icon?: string
+          color?: string
+          sort_order?: number
+          is_system?: boolean
+          created_at?: string
+        }
+      }
       medical_documents: {
         Row: {
           id: string
@@ -125,6 +157,7 @@ export type Database = {
           member_id: string
           title: string
           document_type: 'lab_result' | 'prescription' | 'medical_record' | 'imaging' | 'vaccination' | 'insurance' | 'referral' | 'other'
+          category_id: string | null
           file_path: string
           file_size: number | null
           mime_type: string | null
@@ -132,8 +165,12 @@ export type Database = {
           doctor_name: string | null
           hospital_name: string | null
           notes: string | null
+          ocr_text: string | null
+          is_ocr_processed: boolean
+          tags: string[] | null
           created_at: string
           created_by: string | null
+          updated_at: string
         }
         Insert: {
           id?: string
@@ -141,6 +178,7 @@ export type Database = {
           member_id: string
           title: string
           document_type: 'lab_result' | 'prescription' | 'medical_record' | 'imaging' | 'vaccination' | 'insurance' | 'referral' | 'other'
+          category_id?: string | null
           file_path: string
           file_size?: number | null
           mime_type?: string | null
@@ -148,8 +186,12 @@ export type Database = {
           doctor_name?: string | null
           hospital_name?: string | null
           notes?: string | null
+          ocr_text?: string | null
+          is_ocr_processed?: boolean
+          tags?: string[] | null
           created_at?: string
           created_by?: string | null
+          updated_at?: string
         }
         Update: {
           id?: string
@@ -157,6 +199,7 @@ export type Database = {
           member_id?: string
           title?: string
           document_type?: 'lab_result' | 'prescription' | 'medical_record' | 'imaging' | 'vaccination' | 'insurance' | 'referral' | 'other'
+          category_id?: string | null
           file_path?: string
           file_size?: number | null
           mime_type?: string | null
@@ -164,8 +207,12 @@ export type Database = {
           doctor_name?: string | null
           hospital_name?: string | null
           notes?: string | null
+          ocr_text?: string | null
+          is_ocr_processed?: boolean
+          tags?: string[] | null
           created_at?: string
           created_by?: string | null
+          updated_at?: string
         }
       }
       medications: {
@@ -364,6 +411,7 @@ export type Family = Tables<'families'>
 export type FamilyMember = Tables<'family_members'>
 export type HealthMetric = Tables<'health_metrics'>
 export type MedicalDocument = Tables<'medical_documents'>
+export type DocumentCategory = Tables<'health_document_categories'>
 export type Medication = Tables<'medications'>
 export type MedicationLog = Tables<'medication_logs'>
 export type DoctorVisit = Tables<'doctor_visits'>
@@ -371,13 +419,36 @@ export type HealthProfile = Tables<'health_profiles'>
 
 // Insert types
 export type InsertHealthProfile = InsertTables<'health_profiles'>
+export type InsertMedicalDocument = InsertTables<'medical_documents'>
+export type InsertDocumentCategory = InsertTables<'health_document_categories'>
 
 // Update types
 export type UpdateHealthProfile = UpdateTables<'health_profiles'>
+export type UpdateMedicalDocument = UpdateTables<'medical_documents'>
 
 export type FamilyRole = FamilyMember['role']
 export type MetricType = HealthMetric['metric_type']
 export type DocumentType = MedicalDocument['document_type']
+
+// Document with relations
+export type MedicalDocumentWithRelations = MedicalDocument & {
+  family_members: Pick<FamilyMember, 'id' | 'name' | 'avatar_url'> | null
+  health_document_categories: Pick<DocumentCategory, 'id' | 'name' | 'icon' | 'color'> | null
+}
+
+// Document category constants
+export const DOCUMENT_CATEGORIES = [
+  { name: 'Lab Results', icon: '🔬', color: '#8B5CF6' },
+  { name: 'Prescription', icon: '💊', color: '#EC4899' },
+  { name: 'Vaccination', icon: '💉', color: '#10B981' },
+  { name: 'Checkup', icon: '🩺', color: '#3B82F6' },
+  { name: 'X-Ray/Imaging', icon: '📷', color: '#F59E0B' },
+  { name: 'Insurance', icon: '📋', color: '#6366F1' },
+  { name: 'Referral', icon: '📨', color: '#14B8A6' },
+  { name: 'Hospital', icon: '🏥', color: '#EF4444' },
+  { name: 'Pathology', icon: '🧪', color: '#A855F7' },
+  { name: 'Other', icon: '📄', color: '#6B7280' },
+] as const
 
 // Blood type enum
 export type BloodType = NonNullable<HealthProfile['blood_type']>

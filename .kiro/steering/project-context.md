@@ -128,14 +128,16 @@ Atmando Health
 - [x] Complete database schema migration
 - [x] Build family profiles and dashboard (v0.1)
 - [x] Implement health metrics entry and charts (v0.2)
-- [ ] Implement documents management (v0.3)
+- [x] Implement documents management (v0.3)
+- [ ] Implement vaccinations and visits (v0.4)
 
 ### Recent Changes
+- **1 Feb 2026**: Completed v0.3 - Medical Documents milestone
+- **1 Feb 2026**: Added /documents page with search, filters, upload, and viewer
+- **1 Feb 2026**: Created health_document_categories table and storage bucket
 - **1 Feb 2026**: Completed v0.2 - Health Metrics milestone
 - **1 Feb 2026**: Added /health page with filtering and chart display
 - **1 Feb 2026**: Added /health/[id] edit page with delete functionality
-- **1 Feb 2026**: Created AddMetricSheet bottom sheet component
-- **1 Feb 2026**: Implemented server actions for health metrics CRUD
 - **31 Jan 2026**: Completed v0.1 - Family Profiles & Dashboard milestone
 
 See [CHANGELOG.md](../../CHANGELOG.md) for detailed history.
