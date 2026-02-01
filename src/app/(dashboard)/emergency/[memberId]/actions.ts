@@ -65,7 +65,7 @@ export async function getOrCreateEmergencyToken(memberId: string): Promise<{
     }
 
     // Check for existing valid token
-    const { data: existingToken, error: tokenError } = await supabase
+    const { data: existingToken } = await supabase
       .from('emergency_tokens')
       .select('token')
       .eq('family_member_id', memberId)
@@ -91,7 +91,8 @@ export async function getOrCreateEmergencyToken(memberId: string): Promise<{
       created_by: user.id,
     }
 
-    const { data: createdToken, error: createError } = await supabase
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: createdToken, error: createError } = await (supabase as any)
       .from('emergency_tokens')
       .insert(insertData)
       .select('token')

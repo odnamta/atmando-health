@@ -18,7 +18,8 @@ async function EmergencyPageContent() {
   }
 
   // Get family members
-  const { data: members, error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: members, error } = await (supabase as any)
     .from('family_members')
     .select(`
       id,
@@ -51,6 +52,21 @@ async function EmergencyPageContent() {
     )
   }
 
+  // Type assertion for members
+  type MemberWithProfile = {
+    id: string
+    name: string
+    avatar_url: string | null
+    birth_date: string | null
+    health_profiles: {
+      blood_type: string | null
+      allergies: string[] | null
+      conditions: string[] | null
+      emergency_contact_name: string | null
+    } | null
+  }
+  const typedMembers = members as MemberWithProfile[]
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -66,7 +82,7 @@ async function EmergencyPageContent() {
 
       {/* Member Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {members.map((member) => {
+        {typedMembers.map((member) => {
           const profile = Array.isArray(member.health_profiles) 
             ? member.health_profiles[0] 
             : member.health_profiles

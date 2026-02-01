@@ -8,6 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### ✨ Added
+- **v0.8 Garmin Connect Integration** - Implementation complete (requires Garmin developer credentials)
+  - `/fitness` page for fitness data dashboard
+  - Garmin OAuth 1.0a flow implementation
+  - `/api/garmin/callback` route for OAuth callback
+  - GarminClient library for API communication
+  - Sync utilities for mapping Garmin data to health_metrics
+  - Database table: `health_connected_accounts` for storing OAuth tokens
+  - Added `source_id` column to `health_metrics` for deduplication
+  - RLS policies for connected accounts (user-level access)
+  - Today's summary cards: steps, resting heart rate, sleep
+  - Weekly history view with fitness data
+  - Manual sync trigger button
+  - Connection status display with last sync time
+  - Disconnect functionality with Garmin deregistration
+  - Support for multiple fitness providers (Garmin, Apple Health, Fitbit, Google Fit - UI ready)
+  - Added Fitness link to dashboard navigation
+  - Updated .env.example with Garmin credentials
+  - **Note**: Requires Garmin Connect Developer Program registration (https://developer.garmin.com/gc-developer-program/)
+
 - **v0.7 Push Notifications** - Implementation complete (requires manual setup)
   - `/settings/notifications` page for notification preferences
   - NotificationPermissionBanner component for dashboard

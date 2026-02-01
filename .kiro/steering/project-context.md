@@ -130,8 +130,8 @@ if (error) {
 
 ## Current State (February 2026)
 
-- **Completed**: v0.1-v0.7 (Profiles, Metrics, Documents, Vaccinations, Medications, Emergency Card, Notifications)
-- **Next**: v0.8 (Garmin Sync), v0.9 (Growth Charts)
+- **Completed**: v0.1-v0.8 (Profiles, Metrics, Documents, Vaccinations, Medications, Emergency Card, Notifications, Garmin Sync)
+- **Next**: v0.9 (Growth Charts)
 - **TypeScript**: 0 errors
 - **ESLint**: Minor warnings only
 - **Deployment**: Vercel (working)
@@ -172,11 +172,12 @@ if (error) {
 
 - [x] v0.6: Emergency Card with QR code (implementation complete, pending migration)
 - [x] v0.7: Push notifications for medications/vaccinations (implementation complete, requires setup)
-- [ ] v0.8: Garmin Connect integration (Dio only)
+- [x] v0.8: Garmin Connect integration (implementation complete, requires Garmin developer credentials)
 - [ ] v0.9: WHO growth charts for kids
 
 ## Recent Changes
 
+- 2026-02-01: v0.8.0 - Garmin Connect Integration (OAuth, sync, fitness dashboard) - **REQUIRES GARMIN CREDENTIALS**
 - 2026-02-01: v0.7.0 - Push Notifications (preferences, service worker, Edge Function, PWA support) - **REQUIRES SETUP**
 - 2026-02-01: v0.6.0 - Emergency Card (QR codes, public access, sharing, print-ready cards) - **PENDING MIGRATION**
 - 2026-02-01: Created CLAUDE.md, restructured project-context.md for consistency

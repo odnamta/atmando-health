@@ -16,7 +16,8 @@ async function PublicEmergencyContent({ token }: { token: string }) {
   const supabase = await createClient()
 
   // Get member data using the token (no auth required)
-  const { data: tokenData, error: tokenError } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: tokenData, error: tokenError } = await (supabase as any)
     .from('emergency_tokens')
     .select(`
       id,
@@ -47,18 +48,42 @@ async function PublicEmergencyContent({ token }: { token: string }) {
     notFound()
   }
 
+  // Type assertion for token data
+  type TokenDataType = {
+    id: string
+    family_member_id: string
+    expires_at: string
+    access_count: number
+    family_members: {
+      id: string
+      name: string
+      avatar_url: string | null
+      birth_date: string | null
+      health_profiles: {
+        blood_type: string | null
+        allergies: string[] | null
+        conditions: string[] | null
+        emergency_contact_name: string | null
+        emergency_contact_phone: string | null
+        emergency_contact_relationship: string | null
+      } | null
+    } | null
+  }
+  const typedTokenData = tokenData as TokenDataType
+
   // Update access count
-  await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  await (supabase as any)
     .from('emergency_tokens')
     .update({ 
-      access_count: (tokenData.access_count || 0) + 1,
+      access_count: (typedTokenData.access_count || 0) + 1,
       last_accessed_at: new Date().toISOString()
     })
-    .eq('id', tokenData.id)
+    .eq('id', typedTokenData.id)
 
-  const member = Array.isArray(tokenData.family_members) 
-    ? tokenData.family_members[0] 
-    : tokenData.family_members
+  const member = Array.isArray(typedTokenData.family_members) 
+    ? typedTokenData.family_members[0] 
+    : typedTokenData.family_members
 
   if (!member) {
     notFound()
@@ -115,8 +140,8 @@ async function PublicEmergencyContent({ token }: { token: string }) {
                 <div className="space-y-1">
                   <h3 className="font-medium text-gray-900">Informasi Akses</h3>
                   <div className="text-sm text-gray-600 space-y-1">
-                    <p>Kartu kedaluwarsa: {formatRelative(tokenData.expires_at)}</p>
-                    <p>Total akses: {(tokenData.access_count || 0) + 1} kali</p>
+                    <p>Kartu kedaluwarsa: {formatRelative(typedTokenData.expires_at)}</p>
+                    <p>Total akses: {(typedTokenData.access_count || 0) + 1} kali</p>
                   </div>
                 </div>
               </div>

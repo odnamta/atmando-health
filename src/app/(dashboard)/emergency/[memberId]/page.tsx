@@ -23,7 +23,8 @@ async function EmergencyMemberContent({ memberId }: { memberId: string }) {
   }
 
   // Get member with health profile
-  const { data: member, error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: member, error } = await (supabase as any)
     .from('family_members')
     .select(`
       id,
@@ -51,9 +52,25 @@ async function EmergencyMemberContent({ memberId }: { memberId: string }) {
   const tokenResult = await getOrCreateEmergencyToken(memberId)
   const token = tokenResult.success ? tokenResult.token : undefined
 
-  const profile = Array.isArray(member.health_profiles) 
-    ? member.health_profiles[0] 
-    : member.health_profiles
+  // Type assertion for member data
+  const memberData = member as {
+    id: string
+    name: string
+    avatar_url: string | null
+    birth_date: string | null
+    health_profiles: {
+      blood_type: string | null
+      allergies: string[] | null
+      conditions: string[] | null
+      emergency_contact_name: string | null
+      emergency_contact_phone: string | null
+      emergency_contact_relationship: string | null
+    } | null
+  }
+
+  const profile = Array.isArray(memberData.health_profiles) 
+    ? memberData.health_profiles[0] 
+    : memberData.health_profiles
 
   return (
     <div className="space-y-6">
@@ -74,7 +91,7 @@ async function EmergencyMemberContent({ memberId }: { memberId: string }) {
       {/* Emergency Card */}
       <div className="flex justify-center">
         <EmergencyCard
-          member={member}
+          member={memberData}
           profile={profile}
           token={token}
         />

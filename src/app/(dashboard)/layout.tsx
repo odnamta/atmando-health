@@ -34,6 +34,7 @@ const LABELS = {
     medications: 'Obat',
     visits: 'Kunjungan Dokter',
     emergency: 'Kartu Darurat',
+    fitness: 'Fitness',
     settings: 'Pengaturan',
   },
   user: {
@@ -55,6 +56,7 @@ const NAV_ITEMS = [
   { href: '/medications', label: LABELS.navigation.medications },
   { href: '/visits', label: LABELS.navigation.visits },
   { href: '/emergency', label: LABELS.navigation.emergency },
+  { href: '/fitness', label: LABELS.navigation.fitness },
 ] as const
 
 /**

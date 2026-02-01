@@ -72,6 +72,7 @@ export type Database = {
           measured_at: string
           notes: string | null
           source: string
+          source_id: string | null
           created_at: string
           created_by: string | null
         }
@@ -86,6 +87,7 @@ export type Database = {
           measured_at?: string
           notes?: string | null
           source?: string
+          source_id?: string | null
           created_at?: string
           created_by?: string | null
         }
@@ -100,6 +102,7 @@ export type Database = {
           measured_at?: string
           notes?: string | null
           source?: string
+          source_id?: string | null
           created_at?: string
           created_by?: string | null
         }
@@ -502,6 +505,87 @@ export type Database = {
           created_at?: string
           created_by?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "emergency_tokens_family_member_id_fkey"
+            columns: ["family_member_id"]
+            referencedRelation: "family_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emergency_tokens_created_by_fkey"
+            columns: ["created_by"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      health_connected_accounts: {
+        Row: {
+          id: string
+          user_id: string
+          family_member_id: string
+          provider: 'garmin' | 'apple_health' | 'fitbit' | 'google_fit'
+          provider_user_id: string | null
+          access_token: string | null
+          access_token_secret: string | null
+          refresh_token: string | null
+          token_expires_at: string | null
+          last_sync_at: string | null
+          last_sync_status: 'success' | 'failed' | 'partial' | null
+          last_sync_error: string | null
+          sync_enabled: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          family_member_id: string
+          provider: 'garmin' | 'apple_health' | 'fitbit' | 'google_fit'
+          provider_user_id?: string | null
+          access_token?: string | null
+          access_token_secret?: string | null
+          refresh_token?: string | null
+          token_expires_at?: string | null
+          last_sync_at?: string | null
+          last_sync_status?: 'success' | 'failed' | 'partial' | null
+          last_sync_error?: string | null
+          sync_enabled?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          family_member_id?: string
+          provider?: 'garmin' | 'apple_health' | 'fitbit' | 'google_fit'
+          provider_user_id?: string | null
+          access_token?: string | null
+          access_token_secret?: string | null
+          refresh_token?: string | null
+          token_expires_at?: string | null
+          last_sync_at?: string | null
+          last_sync_status?: 'success' | 'failed' | 'partial' | null
+          last_sync_error?: string | null
+          sync_enabled?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "health_connected_accounts_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "health_connected_accounts_family_member_id_fkey"
+            columns: ["family_member_id"]
+            referencedRelation: "family_members"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       vaccination_schedule: {
         Row: {
@@ -574,6 +658,7 @@ export type HealthProfile = Tables<'health_profiles'>
 export type Vaccination = Tables<'vaccinations'>
 export type VaccinationSchedule = Tables<'vaccination_schedule'>
 export type EmergencyToken = Tables<'emergency_tokens'>
+export type HealthConnectedAccount = Tables<'health_connected_accounts'>
 
 // Insert types
 export type InsertHealthProfile = InsertTables<'health_profiles'>
@@ -689,3 +774,29 @@ export type MedicationWithMember = Medication & {
 
 // Medication log status type
 export type MedicationLogStatus = MedicationLog['status']
+
+// Connected account provider type
+export type ConnectedAccountProvider = HealthConnectedAccount['provider']
+
+// Provider labels in Indonesian
+export const PROVIDER_LABELS: Record<ConnectedAccountProvider, string> = {
+  garmin: 'Garmin Connect',
+  apple_health: 'Apple Health',
+  fitbit: 'Fitbit',
+  google_fit: 'Google Fit',
+} as const
+
+// Provider icons
+export const PROVIDER_ICONS: Record<ConnectedAccountProvider, string> = {
+  garmin: '⌚',
+  apple_health: '🍎',
+  fitbit: '💪',
+  google_fit: '🏃',
+} as const
+
+// Sync status labels in Indonesian
+export const SYNC_STATUS_LABELS: Record<string, string> = {
+  success: 'Berhasil',
+  failed: 'Gagal',
+  partial: 'Sebagian',
+} as const

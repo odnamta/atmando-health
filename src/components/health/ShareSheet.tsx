@@ -125,7 +125,7 @@ export function ShareSheet({ isOpen, onClose, memberName, shareUrl }: ShareSheet
             <Label>Pilihan Berbagi</Label>
             
             {/* Web Share API */}
-            {navigator.share && (
+            {typeof navigator !== 'undefined' && 'share' in navigator && (
               <Button
                 variant="outline"
                 onClick={shareViaWebAPI}

@@ -140,8 +140,8 @@ if (error) {
 
 ## Current State (February 2026)
 
-- **Completed**: v0.1 (Profiles), v0.2 (Metrics), v0.3 (Documents), v0.4 (Vaccinations/Visits), v0.5 (Medications)
-- **Next**: v0.6 (Emergency Card), v0.7 (Notifications), v0.8 (Garmin), v0.9 (Growth Charts)
+- **Completed**: v0.1-v0.8 (Profiles, Metrics, Documents, Vaccinations, Medications, Emergency Card, Notifications, Garmin Sync)
+- **Next**: v0.9 (Growth Charts)
 - **TypeScript**: 0 errors
 - **ESLint**: Minor warnings only
 - **Deployment**: Vercel (working)

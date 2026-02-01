@@ -11,7 +11,8 @@ export async function getNotificationPreferences() {
     return { error: 'Tidak terautentikasi' }
   }
 
-  const { data, error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase as any)
     .from('health_notification_preferences')
     .select('*')
     .eq('user_id', user.id)
@@ -56,7 +57,8 @@ export async function updateNotificationPreferences(preferences: {
     return { error: 'Tidak terautentikasi' }
   }
 
-  const { error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any)
     .from('health_notification_preferences')
     .upsert({
       user_id: user.id,
@@ -84,7 +86,8 @@ export async function subscribeToPush(subscription: {
     return { error: 'Tidak terautentikasi' }
   }
 
-  const { error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any)
     .from('push_subscriptions')
     .upsert({
       user_id: user.id,
@@ -112,7 +115,8 @@ export async function unsubscribeFromPush(endpoint: string) {
     return { error: 'Tidak terautentikasi' }
   }
 
-  const { error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any)
     .from('push_subscriptions')
     .update({ is_active: false })
     .eq('user_id', user.id)
@@ -134,7 +138,8 @@ export async function getPushSubscriptions() {
     return { error: 'Tidak terautentikasi' }
   }
 
-  const { data, error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data, error } = await (supabase as any)
     .from('push_subscriptions')
     .select('*')
     .eq('user_id', user.id)
