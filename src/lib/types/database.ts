@@ -297,48 +297,69 @@ export type Database = {
           family_id: string
           member_id: string
           visit_date: string
+          visit_time: string | null
+          visit_type: 'checkup' | 'sick_visit' | 'follow_up' | 'emergency' | 'specialist' | 'vaccination' | 'other'
+          status: 'scheduled' | 'completed' | 'cancelled' | 'no_show'
           doctor_name: string
           hospital_name: string | null
+          facility_phone: string | null
           specialty: string | null
           reason: string
           diagnosis: string | null
           treatment: string | null
           follow_up_date: string | null
           notes: string | null
+          reminder_enabled: boolean
+          reminder_sent: boolean
           created_at: string
           created_by: string | null
+          updated_at: string
         }
         Insert: {
           id?: string
           family_id: string
           member_id: string
           visit_date: string
+          visit_time?: string | null
+          visit_type?: 'checkup' | 'sick_visit' | 'follow_up' | 'emergency' | 'specialist' | 'vaccination' | 'other'
+          status?: 'scheduled' | 'completed' | 'cancelled' | 'no_show'
           doctor_name: string
           hospital_name?: string | null
+          facility_phone?: string | null
           specialty?: string | null
           reason: string
           diagnosis?: string | null
           treatment?: string | null
           follow_up_date?: string | null
           notes?: string | null
+          reminder_enabled?: boolean
+          reminder_sent?: boolean
           created_at?: string
           created_by?: string | null
+          updated_at?: string
         }
         Update: {
           id?: string
           family_id?: string
           member_id?: string
           visit_date?: string
+          visit_time?: string | null
+          visit_type?: 'checkup' | 'sick_visit' | 'follow_up' | 'emergency' | 'specialist' | 'vaccination' | 'other'
+          status?: 'scheduled' | 'completed' | 'cancelled' | 'no_show'
           doctor_name?: string
           hospital_name?: string | null
+          facility_phone?: string | null
           specialty?: string | null
           reason?: string
           diagnosis?: string | null
           treatment?: string | null
           follow_up_date?: string | null
           notes?: string | null
+          reminder_enabled?: boolean
+          reminder_sent?: boolean
           created_at?: string
           created_by?: string | null
+          updated_at?: string
         }
       }
       health_profiles: {
@@ -388,6 +409,103 @@ export type Database = {
           updated_at?: string
         }
       }
+      vaccinations: {
+        Row: {
+          id: string
+          family_id: string
+          member_id: string
+          vaccine_name: string
+          vaccine_code: string | null
+          dose_number: number
+          date_given: string | null
+          date_due: string | null
+          location: string | null
+          administered_by: string | null
+          batch_number: string | null
+          document_id: string | null
+          notes: string | null
+          reminder_enabled: boolean
+          reminder_sent: boolean
+          created_at: string
+          created_by: string | null
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          family_id: string
+          member_id: string
+          vaccine_name: string
+          vaccine_code?: string | null
+          dose_number?: number
+          date_given?: string | null
+          date_due?: string | null
+          location?: string | null
+          administered_by?: string | null
+          batch_number?: string | null
+          document_id?: string | null
+          notes?: string | null
+          reminder_enabled?: boolean
+          reminder_sent?: boolean
+          created_at?: string
+          created_by?: string | null
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          family_id?: string
+          member_id?: string
+          vaccine_name?: string
+          vaccine_code?: string | null
+          dose_number?: number
+          date_given?: string | null
+          date_due?: string | null
+          location?: string | null
+          administered_by?: string | null
+          batch_number?: string | null
+          document_id?: string | null
+          notes?: string | null
+          reminder_enabled?: boolean
+          reminder_sent?: boolean
+          created_at?: string
+          created_by?: string | null
+          updated_at?: string
+        }
+      }
+      vaccination_schedule: {
+        Row: {
+          id: string
+          vaccine_name: string
+          vaccine_code: string | null
+          dose_number: number
+          age_months_min: number
+          age_months_max: number | null
+          description: string | null
+          is_mandatory: boolean
+          sort_order: number
+        }
+        Insert: {
+          id?: string
+          vaccine_name: string
+          vaccine_code?: string | null
+          dose_number?: number
+          age_months_min: number
+          age_months_max?: number | null
+          description?: string | null
+          is_mandatory?: boolean
+          sort_order?: number
+        }
+        Update: {
+          id?: string
+          vaccine_name?: string
+          vaccine_code?: string | null
+          dose_number?: number
+          age_months_min?: number
+          age_months_max?: number | null
+          description?: string | null
+          is_mandatory?: boolean
+          sort_order?: number
+        }
+      }
     }
     Views: {
       [_ in never]: never
@@ -416,19 +534,59 @@ export type Medication = Tables<'medications'>
 export type MedicationLog = Tables<'medication_logs'>
 export type DoctorVisit = Tables<'doctor_visits'>
 export type HealthProfile = Tables<'health_profiles'>
+export type Vaccination = Tables<'vaccinations'>
+export type VaccinationSchedule = Tables<'vaccination_schedule'>
 
 // Insert types
 export type InsertHealthProfile = InsertTables<'health_profiles'>
 export type InsertMedicalDocument = InsertTables<'medical_documents'>
 export type InsertDocumentCategory = InsertTables<'health_document_categories'>
+export type InsertVaccination = InsertTables<'vaccinations'>
+export type InsertDoctorVisit = InsertTables<'doctor_visits'>
 
 // Update types
 export type UpdateHealthProfile = UpdateTables<'health_profiles'>
 export type UpdateMedicalDocument = UpdateTables<'medical_documents'>
+export type UpdateVaccination = UpdateTables<'vaccinations'>
+export type UpdateDoctorVisit = UpdateTables<'doctor_visits'>
 
 export type FamilyRole = FamilyMember['role']
 export type MetricType = HealthMetric['metric_type']
 export type DocumentType = MedicalDocument['document_type']
+export type VisitType = DoctorVisit['visit_type']
+export type VisitStatus = DoctorVisit['status']
+
+// Visit type labels in Indonesian
+export const VISIT_TYPE_LABELS: Record<VisitType, string> = {
+  checkup: 'Pemeriksaan Rutin',
+  sick_visit: 'Sakit',
+  follow_up: 'Kontrol',
+  emergency: 'Darurat',
+  specialist: 'Spesialis',
+  vaccination: 'Vaksinasi',
+  other: 'Lainnya',
+}
+
+// Visit status labels in Indonesian
+export const VISIT_STATUS_LABELS: Record<VisitStatus, string> = {
+  scheduled: 'Terjadwal',
+  completed: 'Selesai',
+  cancelled: 'Dibatalkan',
+  no_show: 'Tidak Hadir',
+}
+
+// Vaccination status type
+export type VaccinationStatus = 'completed' | 'due' | 'overdue' | 'upcoming'
+
+// Vaccination with member info
+export type VaccinationWithMember = Vaccination & {
+  family_members: Pick<FamilyMember, 'id' | 'name' | 'avatar_url' | 'birth_date'> | null
+}
+
+// Doctor visit with member info
+export type DoctorVisitWithMember = DoctorVisit & {
+  family_members: Pick<FamilyMember, 'id' | 'name' | 'avatar_url'> | null
+}
 
 // Document with relations
 export type MedicalDocumentWithRelations = MedicalDocument & {

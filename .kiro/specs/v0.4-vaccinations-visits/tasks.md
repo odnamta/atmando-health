@@ -1,63 +1,58 @@
 # v0.4 - Vaccinations & Doctor Visits - Tasks
 
-**Version:** v0.4.0
-
-## Tasks
+## Completed Tasks
 
 ### Database
-- [ ] Create `health_vaccinations` table
-- [ ] Create `vaccination_schedule` table (IDAI reference)
-- [ ] Create `health_visits` table
-- [ ] Add RLS policies
-- [ ] Seed IDAI vaccination schedule
-- [ ] Generate TypeScript types
+- [x] Create `vaccination_schedule` table with IDAI reference data
+- [x] Create `vaccinations` table for recording vaccination records
+- [x] Add RLS policies for vaccinations table
+- [x] Enhance `doctor_visits` table with visit_type, status, visit_time columns
+- [x] Add indexes for performance optimization
 
-### Vaccination Components
-- [ ] Create `VaccinationCard` component
-- [ ] Create `VaccinationTimeline` component
-- [ ] Create `DueVaccinationsAlert` component
-- [ ] Create `RecordVaccinationSheet` component
-- [ ] Create `VaccinationStatusBadge` component
+### TypeScript Types
+- [x] Add `Vaccination` and `VaccinationSchedule` types
+- [x] Add `VaccinationStatus` type
+- [x] Update `DoctorVisit` type with new columns
+- [x] Add `VisitType` and `VisitStatus` types
+- [x] Add Indonesian labels for visit types and statuses
 
-### Visit Components
-- [ ] Create `VisitCard` component
-- [ ] Create `VisitCalendar` component
-- [ ] Create `AddVisitSheet` component
-- [ ] Create `VisitTypeSelect` component
-- [ ] Create `FollowUpSection` component
+### Vaccinations Feature
+- [x] Create `/vaccinations` page
+- [x] Create `VaccinationsClient` component with filtering
+- [x] Create `VaccinationCard` component with status indicators
+- [x] Create `VaccinationSummary` component (completed/due/overdue counts)
+- [x] Create `AddVaccinationSheet` for recording vaccinations
+- [x] Implement IDAI schedule integration (shows due vaccines based on age)
+- [x] Create server actions (getVaccinations, createVaccination, etc.)
+- [x] Add loading skeleton
 
-### Pages
-- [ ] Create `/vaccinations` page
-- [ ] Create `/vaccinations/[memberId]` page
-- [ ] Create `/visits` page
-- [ ] Create `/visits/add` page
-- [ ] Create `/visits/[id]` page
-- [ ] Add tabs to member profile
+### Doctor Visits Feature
+- [x] Create `/visits` page
+- [x] Create `VisitsClient` component with filtering
+- [x] Create `VisitCard` component with status badges
+- [x] Create `AddVisitSheet` for recording visits
+- [x] Implement upcoming vs past visit separation
+- [x] Create server actions (getVisits, createVisit, etc.)
+- [x] Add loading skeleton
 
-### Data Fetching
-- [ ] Create `getVaccinations` server action
-- [ ] Create `getDueVaccinations` server action
-- [ ] Create `recordVaccination` server action
-- [ ] Create `getVisits` server action
-- [ ] Create `addVisit` server action
-- [ ] Create `updateVisit` server action
+## Pending Tasks
 
-### Schedule Logic
-- [ ] Implement IDAI schedule calculation
-- [ ] Calculate due dates based on birth date
-- [ ] Determine overdue status
-- [ ] Generate upcoming schedule
+### Vaccinations Enhancements
+- [ ] Add vaccination detail/edit page
+- [ ] Link vaccination to document (certificate upload)
+- [ ] Add vaccination timeline view
+- [ ] Add vaccination reminder notifications
 
-### Calendar
-- [ ] Install date-fns calendar helpers
-- [ ] Create calendar grid component
-- [ ] Add visit markers to calendar
-- [ ] Implement month navigation
+### Doctor Visits Enhancements
+- [ ] Add visit detail/edit page
+- [ ] Add calendar view for visits
+- [ ] Link documents to visits
+- [ ] Add follow-up reminder notifications
+- [ ] Add doctor contact storage
 
-### Polish
-- [ ] Add loading states
-- [ ] Add empty states
-- [ ] Add error handling
-- [ ] Test timeline responsiveness
+## Notes
 
-## Estimated Time: 2 days
+- IDAI schedule data is seeded in the database
+- Vaccinations show due vaccines based on child's age from birth_date
+- Visit types include: checkup, sick_visit, follow_up, emergency, specialist, vaccination, other
+- Visit statuses include: scheduled, completed, cancelled, no_show

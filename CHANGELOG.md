@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### ✨ Added
+- **v0.4 Vaccinations & Doctor Visits** - Complete milestone
+  - `/vaccinations` page with IDAI schedule integration
+  - Vaccination recording with dose tracking
+  - Due/overdue vaccine alerts based on child's age
+  - VaccinationCard with status indicators (completed/due/overdue/upcoming)
+  - VaccinationSummary with counts
+  - AddVaccinationSheet with IDAI schedule picker
+  - `/visits` page with upcoming/past separation
+  - Doctor visit logging with type and status
+  - VisitCard with type icons and status badges
+  - AddVisitSheet with comprehensive form
+  - Database: `vaccination_schedule` table with IDAI data
+  - Database: `vaccinations` table with RLS policies
+  - Database: Enhanced `doctor_visits` with visit_type, status, visit_time
+  - Server actions for vaccinations and visits CRUD
+  - Indonesian labels for visit types and statuses
 - **v0.3 Medical Documents** - Complete milestone
   - `/documents` list page with search, member filter, and category filter
   - Document upload via drag-drop sheet with metadata form

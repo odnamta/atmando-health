@@ -129,16 +129,16 @@ Atmando Health
 - [x] Build family profiles and dashboard (v0.1)
 - [x] Implement health metrics entry and charts (v0.2)
 - [x] Implement documents management (v0.3)
-- [ ] Implement vaccinations and visits (v0.4)
+- [x] Implement vaccinations and visits (v0.4)
+- [ ] Implement medications tracking (v0.5)
 
 ### Recent Changes
+- **1 Feb 2026**: Completed v0.4 - Vaccinations & Visits milestone
+- **1 Feb 2026**: Added /vaccinations page with IDAI schedule integration
+- **1 Feb 2026**: Added /visits page with upcoming/past separation
+- **1 Feb 2026**: Created vaccination_schedule and vaccinations tables
+- **1 Feb 2026**: Enhanced doctor_visits with visit_type and status
 - **1 Feb 2026**: Completed v0.3 - Medical Documents milestone
-- **1 Feb 2026**: Added /documents page with search, filters, upload, and viewer
-- **1 Feb 2026**: Created health_document_categories table and storage bucket
-- **1 Feb 2026**: Completed v0.2 - Health Metrics milestone
-- **1 Feb 2026**: Added /health page with filtering and chart display
-- **1 Feb 2026**: Added /health/[id] edit page with delete functionality
-- **31 Jan 2026**: Completed v0.1 - Family Profiles & Dashboard milestone
 
 See [CHANGELOG.md](../../CHANGELOG.md) for detailed history.
 
