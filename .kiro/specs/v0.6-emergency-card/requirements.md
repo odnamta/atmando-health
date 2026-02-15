@@ -51,7 +51,7 @@ As a user, I want to print emergency cards to keep in wallets/bags.
     ]
   },
   "generated_at": "2026-01-31T10:00:00Z",
-  "app_url": "https://health.atmando.family"
+  "app_url": "https://health.atmando.app"
 }
 ```
 

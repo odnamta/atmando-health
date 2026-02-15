@@ -153,7 +153,7 @@ async function PublicEmergencyContent({ token }: { token: string }) {
             <p>
               Dibuat dengan{' '}
               <a 
-                href="https://health.atmando.family" 
+                href="https://health.atmando.app" 
                 className="text-blue-600 hover:underline"
                 target="_blank"
                 rel="noopener noreferrer"
