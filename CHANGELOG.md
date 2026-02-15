@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [2026-02-15]
+- 🐛 read gender from health_profiles instead of hardcoding 'male' (6c2c0d0)
+- 🐛 update domain to health.atmando.app and update CHANGELOG (c30ad1f)
 - 🐛 resolve ESLint errors and complete v0.7 notification setup (efe69ad)
 
 ## [Unreleased]

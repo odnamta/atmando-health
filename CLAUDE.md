@@ -13,7 +13,7 @@
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript (strict mode)
 - **Database**: Supabase (PostgreSQL) - ~20 tables
 - **Auth**: Supabase Auth
