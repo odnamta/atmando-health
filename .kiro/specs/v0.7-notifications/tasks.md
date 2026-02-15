@@ -7,7 +7,7 @@
 ### PWA Setup
 - [x] Configure service worker for push
 - [x] Set up Web Push API
-- [ ] Generate VAPID keys (manual step - see README)
+- [x] Generate VAPID keys
 - [x] Store subscription in database
 
 ### Database
@@ -25,7 +25,7 @@
 ### Backend
 - [x] Create notification scheduling logic (Edge Function)
 - [x] Create push sending function
-- [ ] Set up cron job for scheduled notifications (manual step)
+- [x] Set up cron job for scheduled notifications
 - [x] Handle notification clicks in service worker
 
 ### Notification Types

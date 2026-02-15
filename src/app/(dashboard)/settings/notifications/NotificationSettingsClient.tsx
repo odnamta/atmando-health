@@ -11,7 +11,6 @@ import {
   getNotificationPreferences,
   updateNotificationPreferences,
   subscribeToPush,
-  getPushSubscriptions,
 } from './actions'
 
 interface NotificationPreferences {
@@ -40,27 +39,27 @@ export function NotificationSettingsClient() {
   const [pushSupported, setPushSupported] = useState(false)
 
   useEffect(() => {
+    async function loadPreferences() {
+      const result = await getNotificationPreferences()
+      if (result.error) {
+        toast.error(result.error)
+      } else if (result.data) {
+        setPreferences(result.data as NotificationPreferences)
+      }
+      setLoading(false)
+    }
+
+    function checkPushSupport() {
+      if ('Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window) {
+        setPushSupported(true)
+        const permission = Notification.permission
+        setPushEnabled(permission === 'granted')
+      }
+    }
+
     loadPreferences()
     checkPushSupport()
   }, [])
-
-  async function loadPreferences() {
-    const result = await getNotificationPreferences()
-    if (result.error) {
-      toast.error(result.error)
-    } else if (result.data) {
-      setPreferences(result.data as NotificationPreferences)
-    }
-    setLoading(false)
-  }
-
-  async function checkPushSupport() {
-    if ('Notification' in window && 'serviceWorker' in navigator && 'PushManager' in window) {
-      setPushSupported(true)
-      const permission = Notification.permission
-      setPushEnabled(permission === 'granted')
-    }
-  }
 
   async function handleSave() {
     setSaving(true)

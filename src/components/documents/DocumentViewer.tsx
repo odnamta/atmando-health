@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { X, Download, Trash2, Loader2, ExternalLink } from 'lucide-react'
+import { Download, Trash2, Loader2, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -47,25 +47,38 @@ export function DocumentViewer({
   const [isDeleting, setIsDeleting] = useState(false)
 
   useEffect(() => {
+    let isMounted = true
+    
+    async function loadFileUrl() {
+      if (!document) return
+      
+      setIsLoading(true)
+      const { url, error } = await getDocumentUrl(document.file_path)
+      
+      if (isMounted) {
+        if (error) {
+          toast.error('Gagal memuat file')
+        } else {
+          setFileUrl(url)
+        }
+        setIsLoading(false)
+      }
+    }
+
     if (document && open) {
       loadFileUrl()
-    } else {
-      setFileUrl(null)
+    }
+    
+    return () => {
+      isMounted = false
     }
   }, [document, open])
 
-  const loadFileUrl = async () => {
-    if (!document) return
-    
-    setIsLoading(true)
-    const { url, error } = await getDocumentUrl(document.file_path)
-    
-    if (error) {
-      toast.error('Gagal memuat file')
-    } else {
-      setFileUrl(url)
+  const handleOpenChange = (newOpen: boolean) => {
+    if (!newOpen) {
+      setFileUrl(null)
     }
-    setIsLoading(false)
+    onOpenChange(newOpen)
   }
 
   const handleDownload = () => {
@@ -96,7 +109,7 @@ export function DocumentViewer({
   const isImage = document.mime_type?.startsWith('image/')
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col">
         <DialogHeader className="flex-shrink-0">
           <div className="flex items-start justify-between">

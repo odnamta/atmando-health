@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Plus, Search, Filter } from 'lucide-react'
+import { Plus, Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -58,21 +58,32 @@ export function DocumentsClient({
   const [categoryId, setCategoryId] = useState(searchParams.get('category') || 'all')
   
   const debouncedSearch = useDebounce(search, 300)
-
-  const fetchDocuments = useCallback(async () => {
-    setIsLoading(true)
-    const { data } = await getDocuments({
-      memberId: memberId !== 'all' ? memberId : undefined,
-      categoryId: categoryId !== 'all' ? categoryId : undefined,
-      search: debouncedSearch || undefined,
-    })
-    setDocuments(data || [])
-    setIsLoading(false)
-  }, [memberId, categoryId, debouncedSearch])
+  
+  // Track if we need to refetch
+  const [refetchTrigger, setRefetchTrigger] = useState(0)
 
   useEffect(() => {
+    let isMounted = true
+    
+    async function fetchDocuments() {
+      setIsLoading(true)
+      const { data } = await getDocuments({
+        memberId: memberId !== 'all' ? memberId : undefined,
+        categoryId: categoryId !== 'all' ? categoryId : undefined,
+        search: debouncedSearch || undefined,
+      })
+      if (isMounted) {
+        setDocuments(data || [])
+        setIsLoading(false)
+      }
+    }
+    
     fetchDocuments()
-  }, [fetchDocuments])
+    
+    return () => {
+      isMounted = false
+    }
+  }, [memberId, categoryId, debouncedSearch, refetchTrigger])
 
   // Update URL params
   useEffect(() => {
@@ -92,11 +103,11 @@ export function DocumentsClient({
 
   const handleUploadComplete = () => {
     setShowUpload(false)
-    fetchDocuments()
+    setRefetchTrigger(prev => prev + 1)
   }
 
   const handleDeleted = () => {
-    fetchDocuments()
+    setRefetchTrigger(prev => prev + 1)
   }
 
   return (

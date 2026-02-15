@@ -14,7 +14,7 @@ interface NotificationPayload {
   entityId?: string
 }
 
-serve(async (req) => {
+serve(async (_req) => {
   try {
     const supabase = createClient(supabaseUrl, supabaseServiceKey)
     const now = new Date()
@@ -202,7 +202,7 @@ serve(async (req) => {
 })
 
 async function sendPushNotification(
-  supabase: any,
+  supabase: ReturnType<typeof createClient>,
   notification: NotificationPayload
 ): Promise<boolean> {
   try {

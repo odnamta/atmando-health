@@ -171,12 +171,15 @@ if (error) {
 ## Active Sprint Tasks
 
 - [x] v0.6: Emergency Card with QR code (implementation complete, pending migration)
-- [x] v0.7: Push notifications for medications/vaccinations (implementation complete, requires setup)
+- [x] v0.7: Push notifications for medications/vaccinations ✅ **COMPLETE** (VAPID configured, Edge Function deployed)
 - [x] v0.8: Garmin Connect integration (implementation complete, requires Garmin developer credentials)
 - [x] v0.9: WHO growth charts for kids (height/weight/BMI charts, percentile calculation, milestones)
 
 ## Recent Changes
 
+- 2026-02-01: Deployed schedule-notifications Edge Function and set VAPID secrets on Supabase (v0.7 complete)
+- 2026-02-01: Generated VAPID keys for push notifications (v0.7 setup)
+- 2026-02-01: Fixed 5 ESLint errors (setState in useEffect patterns, function declaration order, unused imports)
 - 2026-02-01: v0.9.0 - WHO Growth Charts (height/weight/BMI charts, percentile calculation, milestones tracking)
 - 2026-02-01: v0.8.0 - Garmin Connect Integration (OAuth, sync, fitness dashboard) - **REQUIRES GARMIN CREDENTIALS**
 - 2026-02-01: v0.7.0 - Push Notifications (preferences, service worker, Edge Function, PWA support) - **REQUIRES SETUP**

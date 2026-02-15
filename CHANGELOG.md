@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### 🐛 Fixed
+- Fixed ESLint errors in DocumentsClient.tsx (setState in useEffect - used refetch trigger pattern)
+- Fixed ESLint errors in NotificationSettingsClient.tsx (function declaration order - moved inside useEffect)
+- Fixed ESLint errors in DocumentViewer.tsx (function declaration order, setState in effect - used callback pattern)
+- Fixed ESLint errors in schedule-notifications Edge Function (unused parameter, any type)
+- Removed unused imports across multiple files (Filter, X, Skeleton, Button, etc.)
+
+### 🔧 Changed
+- Generated and configured VAPID keys for Web Push notifications (v0.7)
+- Deployed schedule-notifications Edge Function to Supabase
+- Set VAPID secrets on Supabase Edge Functions
+- Added web-push as dev dependency for key generation
+
 ### ✨ Added
 - **v0.9 WHO Growth Charts** - Implementation complete
   - `/growth` page listing children for growth tracking
