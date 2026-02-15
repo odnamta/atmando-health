@@ -50,8 +50,14 @@ export async function POST(request: NextRequest) {
       ? calculateAgeInMonths(memberData.birth_date)
       : null
 
-    // Determine gender (default to male - should come from profile)
-    const gender: Gender = 'male' // TODO: Get from member profile
+    // Get gender from health_profiles
+    const { data: profile } = await supabase
+      .from('health_profiles')
+      .select('gender')
+      .eq('family_member_id', memberId)
+      .single()
+
+    const gender: Gender = (profile as { gender: 'male' | 'female' | null } | null)?.gender ?? 'female'
 
     // Calculate percentiles
     let heightPercentile: number | null = null

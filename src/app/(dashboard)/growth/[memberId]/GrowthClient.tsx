@@ -16,7 +16,9 @@ import { formatAge, getAgeInMonths } from '@/lib/utils/format'
 import { type GrowthDataPoint, type Gender } from '@/lib/utils/growth'
 import type { GrowthRecord, Milestone, FamilyMember } from '@/lib/types/database'
 
-type MemberData = Pick<FamilyMember, 'id' | 'name' | 'birth_date' | 'avatar_url'>
+type MemberData = Pick<FamilyMember, 'id' | 'name' | 'birth_date' | 'avatar_url'> & {
+  gender: 'male' | 'female' | null
+}
 
 interface GrowthClientProps {
   member: MemberData
@@ -31,8 +33,7 @@ export function GrowthClient({ member, growthRecords, milestones }: GrowthClient
   // Calculate current age in months
   const currentAgeMonths = member.birth_date ? getAgeInMonths(member.birth_date) : 0
 
-  // Determine gender (default to male - should come from profile)
-  const gender: Gender = 'male' // TODO: Get from member profile
+  const gender: Gender = member.gender ?? 'female'
 
   // Get latest growth record
   const latestRecord = growthRecords.length > 0 ? growthRecords[0] : null

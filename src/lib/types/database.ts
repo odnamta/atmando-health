@@ -370,6 +370,7 @@ export type Database = {
           id: string
           family_member_id: string
           blood_type: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'Unknown' | null
+          gender: 'male' | 'female' | null
           allergies: string[] | null
           conditions: string[] | null
           emergency_contact_name: string | null
@@ -385,6 +386,7 @@ export type Database = {
           id?: string
           family_member_id: string
           blood_type?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'Unknown' | null
+          gender?: 'male' | 'female' | null
           allergies?: string[] | null
           conditions?: string[] | null
           emergency_contact_name?: string | null
@@ -400,6 +402,7 @@ export type Database = {
           id?: string
           family_member_id?: string
           blood_type?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'Unknown' | null
+          gender?: 'male' | 'female' | null
           allergies?: string[] | null
           conditions?: string[] | null
           emergency_contact_name?: string | null

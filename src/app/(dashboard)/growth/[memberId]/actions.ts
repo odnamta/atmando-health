@@ -10,7 +10,9 @@ import {
 } from '@/lib/utils/growth'
 import type { GrowthRecord, Milestone, FamilyMember } from '@/lib/types/database'
 
-type MemberData = Pick<FamilyMember, 'id' | 'name' | 'birth_date' | 'avatar_url' | 'family_id' | 'role'>
+type MemberData = Pick<FamilyMember, 'id' | 'name' | 'birth_date' | 'avatar_url' | 'family_id' | 'role'> & {
+  gender: 'male' | 'female' | null
+}
 
 export async function getGrowthRecords(memberId: string): Promise<{ data: GrowthRecord[] | null; error: string | null }> {
   const supabase = await createClient()
@@ -51,7 +53,7 @@ export async function getMemberWithProfile(memberId: string): Promise<{ data: Me
 
   const { data, error } = await supabase
     .from('family_members')
-    .select('id, name, birth_date, avatar_url, family_id, role')
+    .select('id, name, birth_date, avatar_url, family_id, role, health_profiles(gender)')
     .eq('id', memberId)
     .single()
 
@@ -60,7 +62,23 @@ export async function getMemberWithProfile(memberId: string): Promise<{ data: Me
     return { data: null, error: 'Anggota tidak ditemukan' }
   }
 
-  return { data: data as MemberData, error: null }
+  const memberData = data as unknown as {
+    id: string; name: string; birth_date: string | null; avatar_url: string | null;
+    family_id: string; role: string; health_profiles: { gender: 'male' | 'female' | null } | null
+  }
+
+  return {
+    data: {
+      id: memberData.id,
+      name: memberData.name,
+      birth_date: memberData.birth_date,
+      avatar_url: memberData.avatar_url,
+      family_id: memberData.family_id,
+      role: memberData.role as MemberData['role'],
+      gender: memberData.health_profiles?.gender ?? null,
+    },
+    error: null,
+  }
 }
 
 interface AddGrowthRecordInput {
@@ -98,9 +116,14 @@ export async function addGrowthRecord(input: AddGrowthRecordInput) {
     ? calculateAgeInMonths(memberData.birth_date)
     : null
 
-  // Determine gender (default to male if not specified - should be added to member profile)
-  // For now, we'll use a simple heuristic or default
-  const gender: Gender = 'male' // TODO: Get from member profile
+  // Get gender from health_profiles
+  const { data: profile } = await supabase
+    .from('health_profiles')
+    .select('gender')
+    .eq('family_member_id', input.memberId)
+    .single()
+
+  const gender: Gender = (profile as { gender: 'male' | 'female' | null } | null)?.gender ?? 'female'
 
   // Calculate percentiles
   let heightPercentile: number | null = null
