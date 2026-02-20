@@ -5,7 +5,11 @@ All notable changes to Atmando Health will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026-02-20]
+- 🔧 migrate @radix-ui/* to unified radix-ui + add Playwright tests + CI (b823888)
+
 ## [2026-02-15]
+- 📝 update CHANGELOG with recent commit (e25d2f1)
 - 🔧 bump version to 0.9.0, fix @types/qrcode placement (9fa49b5)
 - 🐛 read gender from health_profiles instead of hardcoding 'male' (6c2c0d0)
 - 🐛 update domain to health.atmando.app and update CHANGELOG (c30ad1f)
